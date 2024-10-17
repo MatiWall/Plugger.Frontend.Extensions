@@ -1,0 +1,9 @@
+{
+  "name": "CatCode.Frontend.CorePlugin",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",
+  "author": "matiwall@live.dk",
+  "license": "MIT",
+  "private": false
+}
