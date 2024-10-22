@@ -5,5 +5,8 @@
   "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",
   "author": "matiwall@live.dk",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "@catcode/core-routing": "^0.1.0"
+  }
 }

@@ -1,7 +1,4 @@
-
-type Extension = {
-
-}
+import { RouteRef } from "@catcode/core-routing"
 
 type PluginConfig = {
     id: string,
