@@ -5,7 +5,13 @@ type attachTooType = {
 
 }
 
+enum ExtensionKind {
+    Component,
+    Routing
+}
+
 
 export {
-    attachTooType
+    attachTooType, 
+    ExtensionKind
 }

@@ -1,4 +1,6 @@
 import { RouteRef } from "@catcode/core-routing"
+import { Extension } from "../extension/Extension"
+
 
 type PluginConfig = {
     id: string,
@@ -7,4 +9,22 @@ type PluginConfig = {
 }
 
 
+class Plugin {
 
+    id: string; 
+    extensions: Extension[]
+
+    constructor(
+        id: string,
+        extensions: Extension[]
+    ){
+        this.id = id;
+        this.extensions = extensions;
+
+    }
+}
+
+
+export {
+    Plugin
+}

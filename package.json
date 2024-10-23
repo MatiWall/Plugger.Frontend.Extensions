@@ -6,7 +6,15 @@
   "author": "matiwall@live.dk",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "@catcode/core-routing": "^0.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.2.5"
   }
 }
