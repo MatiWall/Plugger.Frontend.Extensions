@@ -39,7 +39,31 @@ class Extension {
     }
 }
 
+function createExtension({
+    id,
+    name,
+    kind,
+    disabled = false, // Default to false if not provided
+    attachToo,
+    provider,
+    input = [],
+    output = [],
+    configSchema = {}
+}: {
+    id: string;
+    name: string;
+    kind: ExtensionKind;
+    disabled?: boolean;
+    attachToo: attachTooType;
+    provider: CallableFunction;
+    input?: any[];
+    output?: any[];
+    configSchema?: object;
+}): Extension {
+    return new Extension(id, name, kind, disabled, attachToo, provider, input, output, configSchema);
+}
 
 export {
-    Extension
+    Extension,
+    createExtension
 }

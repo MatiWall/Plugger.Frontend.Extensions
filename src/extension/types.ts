@@ -2,7 +2,7 @@
 
 type attachTooType = {
     id: string,
-
+    input: string
 }
 
 enum ExtensionKind {

@@ -1,7 +1,10 @@
-import { Extension } from "./extension/Extension";
-import { Plugin } from "./plugin/CreatePlugin";
+import { Extension, ExtensionKind, createExtension } from "./extension";
+import { Plugin, createPlugin } from "./plugin";
 
 export {
     Extension,
-    Plugin
+    createExtension,
+    ExtensionKind,
+    Plugin, 
+    createPlugin
 }
