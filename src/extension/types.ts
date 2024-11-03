@@ -10,8 +10,10 @@ enum ExtensionKind {
     Routing
 }
 
+export type {
+    attachTooType, 
+}
 
 export {
-    attachTooType, 
     ExtensionKind
 }

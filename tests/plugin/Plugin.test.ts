@@ -1,14 +1,13 @@
-
-import { RouteRef, ExternalRouteRef } from "@catcode/core-routing";
-import { Extension, ExtensionKind, Plugin } from "../../src";
-
+import { RouteRef, ExternalRouteRef, Route, createRouteRef } from "@catcode/core-routing";
+import { Extension, ExtensionKind, Plugin, createPlugin } from "../../src";
+import React from 'react'
 
 describe('Create plugin', ()=>{
 
     test('directly', ()=>{
                 // Arrange: Define test values
             const id = "test-plugin-id";
-            const routeRef = { id: "route-ref-id" } as RouteRef; // Mock RouteRef
+            const routeRef = createRouteRef(); // Mock RouteRef
             const externalRouteRefs = {
                 someRoute: { id: "external-route-ref-id" } as ExternalRouteRef
             };
@@ -24,6 +23,16 @@ describe('Create plugin', ()=>{
             expect(plugin.routeRef).toBe(routeRef);
             expect(plugin.externalRouteRefs).toEqual(externalRouteRefs);
             expect(plugin.extensions).toEqual(extensions);
+    })
+
+    test('createPlugin function', ()=> {
+        
+        const routeRef = createRouteRef();
+
+        const plugin = createPlugin({
+            id: 'test:id',
+            routeRef: routeRef
+        });
     })
 
 }

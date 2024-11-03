@@ -10,4 +10,7 @@ module.exports = {
       '^@/(.*)$': '<rootDir>/src/$1', // If you use custom paths in tsconfig
     },
     extensionsToTreatAsEsm: ['.ts'], // Treat .ts files as ESModules
+    transformIgnorePatterns: [
+      'node_modules/(?!@catcode/core-routing)'  // Ignore all node_modules except @catcode/core-routing
+    ],
   };
