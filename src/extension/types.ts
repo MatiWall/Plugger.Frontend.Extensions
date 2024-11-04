@@ -1,7 +1,9 @@
 
 
 type attachTooType = {
-    id: string,
+    namespace: string,
+    name: string, 
+    kind: ExtensionKind,
     input: string
 }
 

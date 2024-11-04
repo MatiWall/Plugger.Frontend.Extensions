@@ -4,21 +4,22 @@ import { Extension, ExtensionKind, createExtension } from "../../src";
 describe('Extension initialization ', () => {
     test('Create extension instance directly', () => {
 
-        const id = "test-id";
+        const namespace = "test";
         const name = "Test Extension";
         const kind = ExtensionKind.Component;
         const disabled = false;
-        const attachToo = {id: 'test:id', input: 'test'};
+        const attachToo = {namespace: 'test', name: 'id', kind: ExtensionKind.Component, input: 'test'};
         const provider = () => 'test'; // Mock function for provider
         const input = [{ key: "value" }];
         const output = ["outputValue"];
         const configSchema = { schemaKey: "schemaValue" };
 
         // Act: Create an instance of Extension
-        const extension = new Extension(id, name, kind, disabled, attachToo, provider, input, output, configSchema);
+        const extension = new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, configSchema);
 
         // Assert: Verify all properties are set correctly
-        expect(extension.id).toBe(id);
+        expect(extension.id).toBe(`${kind.toString()}:${namespace}/${name}`);
+        expect(extension.namespace).toBe(namespace);
         expect(extension.name).toBe(name);
         expect(extension.kind).toBe(kind);
         expect(extension.disabled).toBe(disabled);
@@ -31,11 +32,11 @@ describe('Extension initialization ', () => {
 
     test("should create an Extension instance with the provided properties", () => {
         // Arrange: Define the test values
-        const id = "test-extension-id";
+        const namespace = "test";
         const name = "Test Extension";
         const kind: ExtensionKind =  ExtensionKind.Routing; // Replace with actual ExtensionKind
         const disabled = false;
-        const attachToo = {id: 'test:id', input: 'test'}; // Replace with actual attachTooType
+        const attachToo = {namespace: 'test', name: 'id', kind: ExtensionKind.Routing, input: 'test'}; // Replace with actual attachTooType
         const provider = jest.fn(); // Mock provider function
         const input = [{ key: "value" }];
         const output = ["outputValue"];
@@ -43,7 +44,7 @@ describe('Extension initialization ', () => {
 
         // Act: Create an Extension instance
         const extension = createExtension({
-            id,
+            namespace,
             name,
             kind,
             disabled,
@@ -56,7 +57,7 @@ describe('Extension initialization ', () => {
 
         // Assert: Verify all properties are set correctly
         expect(extension).toBeInstanceOf(Extension);
-        expect(extension.id).toBe(id);
+        expect(extension.id).toBe(`${kind.toString()}:${namespace}/${name}`);
         expect(extension.name).toBe(name);
         expect(extension.kind).toBe(kind);
         expect(extension.disabled).toBe(disabled);

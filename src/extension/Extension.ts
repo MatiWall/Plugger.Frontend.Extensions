@@ -1,10 +1,10 @@
+import { idGenerator } from "../Id";
 import { ExtensionKind, attachTooType } from "./types";
-
 
 
 class Extension {
     
-    id: string;
+    namespace: string;
     kind: ExtensionKind;
     name: string;
     disabled: boolean;
@@ -15,7 +15,7 @@ class Extension {
     configSchema: object;
 
     constructor(
-        id: string,
+        namespace: string,
         name: string,
         kind: ExtensionKind,
         disabled: boolean,
@@ -25,9 +25,9 @@ class Extension {
         output: any[],
         configSchema: object
     ){
-        this.id = id;
-        this.kind = kind;
+        this.namespace = namespace;
         this.name = name;
+        this.kind = kind;
         this.disabled = disabled;
         this.provider = provider;
         this.attachToo = attachToo;
@@ -37,10 +37,14 @@ class Extension {
         this.configSchema = configSchema;
 
     }
+
+    get id(){
+        return idGenerator(this.namespace, this.name, this.kind.toString())
+    }
 }
 
 function createExtension({
-    id,
+    namespace,
     name,
     kind,
     disabled = false, // Default to false if not provided
@@ -50,7 +54,7 @@ function createExtension({
     output = [],
     configSchema = {}
 }: {
-    id: string;
+    namespace: string;
     name: string;
     kind: ExtensionKind;
     disabled?: boolean;
@@ -60,7 +64,7 @@ function createExtension({
     output?: any[];
     configSchema?: object;
 }): Extension {
-    return new Extension(id, name, kind, disabled, attachToo, provider, input, output, configSchema);
+    return new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, configSchema);
 }
 
 export {

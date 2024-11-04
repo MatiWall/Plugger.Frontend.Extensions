@@ -12,7 +12,7 @@ describe('Create plugin', ()=>{
                 someRoute: { id: "external-route-ref-id" } as ExternalRouteRef
             };
             const extensions: Extension[] = [
-                new Extension("ext1", "Test Extension 1", ExtensionKind.Component, false, {id: 'test', input: 'test'}, jest.fn(), [], [], {})
+                new Extension("ext1", "Test Extension 1", ExtensionKind.Component, false, {namespace: 'test', name: 'test', kind: ExtensionKind.Component, input: 'test'}, jest.fn(), [], [], {})
             ];
             
             const plugin = new Plugin(id, routeRef, externalRouteRefs, extensions)
