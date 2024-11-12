@@ -38,8 +38,12 @@ class Extension {
 
     }
 
-    get id(){
+    get id(): string{
         return idGenerator(this.namespace, this.name, this.kind.toString())
+    }
+
+    parentId(): string{
+        return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind.toString())
     }
 }
 

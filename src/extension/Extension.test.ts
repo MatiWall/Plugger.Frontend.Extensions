@@ -1,4 +1,4 @@
-import { Extension, ExtensionKind, createExtension } from "../../src";
+import { Extension, ExtensionKind, createExtension } from "..";
 
 
 describe('Extension initialization ', () => {
@@ -62,6 +62,7 @@ describe('Extension initialization ', () => {
         expect(extension.kind).toBe(kind);
         expect(extension.disabled).toBe(disabled);
         expect(extension.attachToo).toBe(attachToo);
+        expect(extension.parentId()).toBe(`${ExtensionKind.Routing.toString()}:test/id`);
         expect(extension.provider).toBe(provider);
         expect(extension.input).toEqual(input);
         expect(extension.output).toEqual(output);

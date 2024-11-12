@@ -1,4 +1,4 @@
-import { ExtensionKind, createExtensionBluePrint } from "../../src";
+import { ExtensionKind, createExtensionBluePrint } from "..";
 
 
 describe('Extension Blueprint', ()=>{

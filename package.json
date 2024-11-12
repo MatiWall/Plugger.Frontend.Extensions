@@ -1,14 +1,19 @@
 {
   "name": "@catcode/core-plugin",
-  "version": "0.1.0",
-  "main": "src/index.js",
+  "version": "0.1.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",
   "author": "matiwall@live.dk",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "build": "tsc"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@catcode/core-routing": "^0.1.0"
   },
