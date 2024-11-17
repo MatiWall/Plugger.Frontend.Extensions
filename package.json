@@ -1,6 +1,6 @@
 {
   "name": "@catcode/core-plugin",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",

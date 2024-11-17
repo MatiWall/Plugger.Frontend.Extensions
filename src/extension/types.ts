@@ -8,8 +8,8 @@ type attachTooType = {
 }
 
 enum ExtensionKind {
-    Component,
-    Routing
+    Component = 'Component',
+    Routing = 'Routing'
 }
 
 export type {
