@@ -1,4 +1,5 @@
 import { idGenerator } from "../Id";
+import { ExtensionDataRef } from "./ExtensionDataRef";
 import { ExtensionKind, attachTooType } from "./types";
 
 
@@ -65,7 +66,7 @@ function createExtension({
     attachToo: attachTooType;
     provider: CallableFunction;
     input?: any[];
-    output?: any[];
+    output?: ExtensionDataRef[];
     configSchema?: object;
 }): Extension {
     return new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, configSchema);

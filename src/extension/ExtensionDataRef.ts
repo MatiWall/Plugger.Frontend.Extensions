@@ -40,3 +40,8 @@ class ExtensionDataValue<TData>{
     }
 
 }
+
+export {
+    ExtensionDataRef,
+    ExtensionDataValue
+}
