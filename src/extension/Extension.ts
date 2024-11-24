@@ -43,7 +43,7 @@ class Extension {
         return idGenerator(this.namespace, this.name, this.kind.toString())
     }
 
-    parentId(): string{
+    attatchTooId(): string{
         return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind.toString())
     }
 }
