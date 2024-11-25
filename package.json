@@ -15,7 +15,9 @@
     "dist"
   ],
   "dependencies": {
-    "@catcode/core-routing": "^0.1.0"
+    "@catcode/core-routing": "^0.1.0",
+    "uuid": "^11.0.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

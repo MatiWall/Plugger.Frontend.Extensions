@@ -1,4 +1,7 @@
-import { Extension, ExtensionKind, createExtension } from "..";
+import { z } from 'zod';
+import { Extension, createExtension } from "./Extension";
+import { createExtensionDataRef } from "./ExtensionDataRef";
+import { ExtensionKind } from "./types";
 
 
 describe('Extension initialization ', () => {
@@ -12,7 +15,9 @@ describe('Extension initialization ', () => {
         const provider = () => 'test'; // Mock function for provider
         const input = [{ key: "value" }];
         const output = ["outputValue"];
-        const configSchema = { schemaKey: "schemaValue" };
+        const configSchema = z.object({
+            test1: z.string().default('test')
+        });
 
         // Act: Create an instance of Extension
         const extension = new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, configSchema);
@@ -32,6 +37,8 @@ describe('Extension initialization ', () => {
 
     test("should create an Extension instance with the provided properties", () => {
         // Arrange: Define the test values
+
+        const extensionDataRef = createExtensionDataRef();
         const namespace = "test";
         const name = "Test Extension";
         const kind: ExtensionKind =  ExtensionKind.Routing; // Replace with actual ExtensionKind
@@ -39,8 +46,10 @@ describe('Extension initialization ', () => {
         const attachToo = {namespace: 'test', name: 'id', kind: ExtensionKind.Routing, input: 'test'}; // Replace with actual attachTooType
         const provider = jest.fn(); // Mock provider function
         const input = [{ key: "value" }];
-        const output = ["outputValue"];
-        const configSchema = { schemaKey: "schemaValue" };
+        const output = [extensionDataRef];
+        const configSchema = z.object({
+            test1: z.string().default('test')
+        });;
 
         // Act: Create an Extension instance
         const extension = createExtension({
@@ -62,7 +71,7 @@ describe('Extension initialization ', () => {
         expect(extension.kind).toBe(kind);
         expect(extension.disabled).toBe(disabled);
         expect(extension.attachToo).toBe(attachToo);
-        expect(extension.parentId()).toBe(`${ExtensionKind.Routing.toString()}:test/id`);
+        expect(extension.attachTooId()).toBe(`${ExtensionKind.Routing.toString()}:test/id`);
         expect(extension.provider).toBe(provider);
         expect(extension.input).toEqual(input);
         expect(extension.output).toEqual(output);

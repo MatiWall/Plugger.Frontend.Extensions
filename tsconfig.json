@@ -14,7 +14,7 @@
       "rootDir": "./src",
       "sourceMap": true,                       // Generate sourcemap files
       "jsx": "react",  
-      "noImplicitAny": false
+      "noImplicitAny": false, 
     },
     "include": ["src/**/*.ts"], // Include all .ts files in src and tests
     "exclude": ["node_modules"]               // Exclude node_modules from compilation

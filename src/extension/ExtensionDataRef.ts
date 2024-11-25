@@ -1,4 +1,4 @@
-
+import { v4 as uuidv4} from 'uuid';
 
 
 class ExtensionDataRef {
@@ -25,6 +25,19 @@ class ExtensionDataRef {
 
 }
 
+function createExtensionDataRef({
+        id
+    }:{
+        id?: string
+    } = {}){
+        if (id === undefined){
+            id = uuidv4()
+        }
+
+    return new ExtensionDataRef(id);
+
+}
+
 
 class ExtensionDataValue<TData>{
     id: string
@@ -43,5 +56,6 @@ class ExtensionDataValue<TData>{
 
 export {
     ExtensionDataRef,
-    ExtensionDataValue
+    ExtensionDataValue,
+    createExtensionDataRef
 }

@@ -1,3 +1,4 @@
+import { z, ZodType } from 'zod';
 import { idGenerator } from "../Id";
 import { ExtensionDataRef } from "./ExtensionDataRef";
 import { ExtensionKind, attachTooType } from "./types";
@@ -24,7 +25,7 @@ class Extension {
         provider: CallableFunction,
         input: any[],
         output: any[],
-        configSchema: object
+        configSchema: ZodType
     ){
         this.namespace = namespace;
         this.name = name;
@@ -43,7 +44,7 @@ class Extension {
         return idGenerator(this.namespace, this.name, this.kind.toString())
     }
 
-    attatchTooId(): string{
+    attachTooId(): string{
         return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind.toString())
     }
 }
@@ -57,7 +58,7 @@ function createExtension({
     provider,
     input = [],
     output = [],
-    configSchema = {}
+    configSchema = z.object({})
 }: {
     namespace: string;
     name: string;
@@ -67,7 +68,7 @@ function createExtension({
     provider: CallableFunction;
     input?: any[];
     output?: ExtensionDataRef[];
-    configSchema?: object;
+    configSchema?: ZodType;
 }): Extension {
     return new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, configSchema);
 }
