@@ -39,13 +39,13 @@ function createExtensionDataRef({
 }
 
 
-class ExtensionDataValue<TData>{
+class ExtensionDataValue{
     id: string
-    data: TData
+    data: object
 
     constructor(
         id: string,
-        data: TData
+        data: object
     ){
         this.id = id;
         this.data = data;

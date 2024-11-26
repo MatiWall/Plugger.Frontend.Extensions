@@ -8,11 +8,11 @@ class ExtensionBluePrint {
     namespace?: string;
     name?: string;
     disabled?: boolean;
-    provider?: CallableFunction;
+    provider: ProviderFunction;
     attachToo?: attachTooType;
     input?: any[];
     output?: any[];
-    configSchema?: object;
+    configSchema: ZodType = z.object({});
 
     constructor(
         namespace?: string,
@@ -23,7 +23,7 @@ class ExtensionBluePrint {
         provider?: CallableFunction,
         input: any[] = [],
         output: any[] = [],
-        configSchema: object = {}
+        configSchema: ZodType = {}
     ) {
         this.kind = kind;
         this.namespace = namespace;

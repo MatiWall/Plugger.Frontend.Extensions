@@ -12,8 +12,8 @@ describe('Extension initialization ', () => {
         const kind = ExtensionKind.Component;
         const disabled = false;
         const attachToo = {namespace: 'test', name: 'id', kind: ExtensionKind.Component, input: 'test'};
-        const provider = () => 'test'; // Mock function for provider
-        const input = [{ key: "value" }];
+        const provider = ({}) => []; // Mock function for provider
+        const input = {};
         const output = ["outputValue"];
         const configSchema = z.object({
             test1: z.string().default('test')
@@ -45,7 +45,7 @@ describe('Extension initialization ', () => {
         const disabled = false;
         const attachToo = {namespace: 'test', name: 'id', kind: ExtensionKind.Routing, input: 'test'}; // Replace with actual attachTooType
         const provider = jest.fn(); // Mock provider function
-        const input = [{ key: "value" }];
+        const input = {};
         const output = [extensionDataRef];
         const configSchema = z.object({
             test1: z.string().default('test')

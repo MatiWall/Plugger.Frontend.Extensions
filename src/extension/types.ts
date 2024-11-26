@@ -3,8 +3,7 @@
 type attachTooType = {
     namespace: string,
     name: string, 
-    kind: ExtensionKind,
-    input: string
+    kind: ExtensionKind
 }
 
 enum ExtensionKind {

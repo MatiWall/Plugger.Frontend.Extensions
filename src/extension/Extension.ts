@@ -1,8 +1,13 @@
 import { z, ZodType } from 'zod';
 import { idGenerator } from "../Id";
-import { ExtensionDataRef } from "./ExtensionDataRef";
+import { ExtensionDataRef, ExtensionDataValue } from "./ExtensionDataRef";
 import { ExtensionKind, attachTooType } from "./types";
+import { ExtensionInputNode } from './ExtensionInputNode';
 
+type ProviderFunction = (context: {
+    inputs: object;
+    config: object;
+}) => ExtensionDataValue[];
 
 class Extension {
     
@@ -10,11 +15,13 @@ class Extension {
     kind: ExtensionKind;
     name: string;
     disabled: boolean;
-    provider: CallableFunction;
+    provider: ProviderFunction;
     attachToo: attachTooType;
-    input: object;
-    output: any[];
-    configSchema: object;
+    input: {[key: string]: ExtensionInputNode};
+    output: ExtensionDataRef[];
+    configSchema: ZodType = z.object({});
+
+    private children: Extension[] = [];
 
     constructor(
         namespace: string,
@@ -22,9 +29,9 @@ class Extension {
         kind: ExtensionKind,
         disabled: boolean,
         attachToo: attachTooType,
-        provider: CallableFunction,
-        input: any[],
-        output: any[],
+        provider: ProviderFunction,
+        input: {[key: string]: ExtensionInputNode},
+        output: ExtensionDataRef[],
         configSchema: ZodType
     ){
         this.namespace = namespace;
@@ -47,6 +54,64 @@ class Extension {
     attachTooId(): string{
         return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind.toString())
     }
+
+    addChildren(extension: Extension){
+        this.children.push(extension)
+    }
+
+    evaluate(): ExtensionDataValue[] {
+        if (this.disabled) {
+            return [];
+        }
+
+        let outputChildren: ExtensionDataValue[] = [];
+        if (this.children.length > 0){
+
+            outputChildren = this.children.map(child => child.evaluate()).flat()
+
+        }
+
+        const builtInput = this.buildInput(outputChildren);
+
+        let output = this.provider({
+            inputs: builtInput, 
+            config: this.configSchema
+        });
+        
+        return output;
+
+        
+    }
+
+    private buildInput(values: ExtensionDataValue[]){
+        let input = this.input;
+        
+
+        for(const key in input){
+            const node: ExtensionInputNode = this.input[key]
+            
+            const matches = values.filter(item =>item.id === node.ref.id);
+
+
+            if (node.allowMultiple){
+                input[key] = matches.map(item => item.data)
+            }
+            else{
+                if (matches.length > 1){
+                    throw new Error(`Multiple matches for input key "${key}".`);
+                }
+                else if (matches.length === 0){
+                    input[key] = undefined;
+                }
+                input[key] = matches[0].data;
+            }
+        }
+
+        return input;
+
+
+    }
+
 }
 
 function createExtension({
@@ -56,7 +121,7 @@ function createExtension({
     disabled = false, // Default to false if not provided
     attachToo,
     provider,
-    input = [],
+    input = {},
     output = [],
     configSchema = z.object({})
 }: {
@@ -65,8 +130,8 @@ function createExtension({
     kind: ExtensionKind;
     disabled?: boolean;
     attachToo: attachTooType;
-    provider: CallableFunction;
-    input?: any[];
+    provider: ProviderFunction;
+    input?: {[key: string]: ExtensionInputNode};
     output?: ExtensionDataRef[];
     configSchema?: ZodType;
 }): Extension {
