@@ -1,6 +1,9 @@
 import { ZodType, z } from "zod";
 import { createExtension } from "./Extension";
 import { ExtensionKind, attachTooType } from "./types";
+import { ProviderFunction } from "./Extension";
+import { ExtensionDataRef } from "./ExtensionDataRef";
+import { ExtensionInputNode } from "./ExtensionInputNode";
 
 class ExtensionBluePrint {
     id?: string;
@@ -8,10 +11,10 @@ class ExtensionBluePrint {
     namespace?: string;
     name?: string;
     disabled?: boolean;
-    provider: ProviderFunction;
+    provider?: ProviderFunction;
     attachToo?: attachTooType;
-    input?: any[];
-    output?: any[];
+    input?: {[key: string]: ExtensionInputNode};
+    output?: ExtensionDataRef[];
     configSchema: ZodType = z.object({});
 
     constructor(
@@ -20,10 +23,10 @@ class ExtensionBluePrint {
         kind?: ExtensionKind,
         disabled: boolean = false,
         attachToo?: attachTooType,
-        provider?: CallableFunction,
-        input: any[] = [],
-        output: any[] = [],
-        configSchema: ZodType = {}
+        provider?: ProviderFunction,
+        input: {[key: string]: ExtensionInputNode} = {},
+        output: ExtensionDataRef[] = [],
+        configSchema: ZodType = z.object({})
     ) {
         this.kind = kind;
         this.namespace = namespace;
@@ -41,11 +44,11 @@ class ExtensionBluePrint {
         namespace?: string;
         name?: string;
         disabled?: boolean;
-        provider?: CallableFunction;
+        provider?: ProviderFunction;
         attachToo?: attachTooType;
-        inputs?: any[];
-        outputs?: any[];
-        configSchema: ZodType;
+        input?: {[key: string]: ExtensionInputNode};
+        outputs?: ExtensionDataRef[];
+        configSchema?: ZodType
     }) {
         const kind = args.kind ?? this.kind;
         const namespace = args.namespace ?? this.namespace;
@@ -53,7 +56,7 @@ class ExtensionBluePrint {
         const disabled = args.disabled ?? this.disabled;
         const provider = args.provider ?? this.provider;
         const attachToo = args.attachToo ?? this.attachToo;
-        const input = args.inputs ?? this.input;
+        const input = args.input ?? this.input;
         const output = args.outputs ?? this.output;
         const configSchema = args.configSchema ?? this.configSchema;
 
@@ -74,7 +77,7 @@ class ExtensionBluePrint {
             disabled: disabled,
             provider: provider,
             attachToo: attachToo,
-            input: input,
+            input: input || {},
             output: output,
             configSchema: configSchema,
         });
@@ -88,19 +91,19 @@ function createExtensionBluePrint({
     disabled = false,
     attachToo,
     provider,
-    input = [],
+    input = {},
     output = [],
-    configSchema = {},
+    configSchema = z.object({}),
 }: {
     namespace?: string;
     name?: string;
     kind?: ExtensionKind;
     disabled?: boolean;
     attachToo?: attachTooType;
-    provider?: CallableFunction;
-    input?: any[];
-    output?: any[];
-    configSchema?: object;
+    provider?: ProviderFunction;
+    input?: {[key: string]: ExtensionInputNode};
+    output?: ExtensionDataRef[];
+    configSchema?: ZodType;
 } = {}) {
     return new ExtensionBluePrint(
         namespace,

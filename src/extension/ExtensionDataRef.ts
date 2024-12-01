@@ -12,10 +12,10 @@ class ExtensionDataRef {
 
     }
 
-    with<TData>(
-        data: TData
-    ): ExtensionDataValue<TData>{
-        return new ExtensionDataValue<TData>(
+    with(
+        data: object
+    ): ExtensionDataValue{
+        return new ExtensionDataValue(
             this.id,
             data
         )

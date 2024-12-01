@@ -1,6 +1,7 @@
 import { RouteRef, ExternalRouteRef, Route, createRouteRef } from "@catcode/core-routing";
 import { Extension, ExtensionKind, Plugin, createPlugin } from "..";
 import React from 'react'
+import {z} from 'zod';
 
 describe('Create plugin', ()=>{
 
@@ -12,7 +13,7 @@ describe('Create plugin', ()=>{
                 someRoute: { id: "external-route-ref-id" } as ExternalRouteRef
             };
             const extensions: Extension[] = [
-                new Extension("ext1", "Test Extension 1", ExtensionKind.Component, false, {namespace: 'test', name: 'test', kind: ExtensionKind.Component, input: 'test'}, jest.fn(), [], [], {})
+                new Extension("ext1", "Test Extension 1", ExtensionKind.Component, false, {namespace: 'test', name: 'test', kind: ExtensionKind.Component}, jest.fn(), {}, [], z.object({}))
             ];
             
             const plugin = new Plugin(id, routeRef, externalRouteRefs, extensions)

@@ -1,3 +1,4 @@
+import {z} from 'zod'
 import { ExtensionKind, createExtensionBluePrint } from "..";
 
 
@@ -14,16 +15,16 @@ describe('Extension Blueprint', ()=>{
             namespace: namespace,
             kind: kind,
         })
-
+        const testConfig = {};
         expect(blueprint).toBeDefined();
         expect(blueprint.name).toBe(name);
         expect(blueprint.namespace).toBe(namespace);
         expect(blueprint.kind).toBe(kind);
         expect(blueprint.disabled).toBe(false);
         expect(blueprint.attachToo).toBeUndefined();
-        expect(blueprint.input).toEqual([]);
+        expect(blueprint.input).toEqual({});
         expect(blueprint.output).toEqual([]);
-        expect(blueprint.configSchema).toEqual({});
+        expect(blueprint.configSchema.parse(testConfig)).toEqual({});
     })
 
     test('Throw error if required parameters are missing', ()=>{
@@ -34,9 +35,7 @@ describe('Extension Blueprint', ()=>{
         });
 
         expect(() => {
-            blueprint.make({
-                // Missing required parameters like provider, attachToo, etc.
-            });
+            blueprint.make({});
         }).toThrow("The 'provider' parameter must be specified either in the constructor or in make arguments.");
     })
 
@@ -46,7 +45,7 @@ describe('Extension Blueprint', ()=>{
             name: "test-name",
             kind: ExtensionKind.Component, // Replace with actual kind from ExtensionKind
             provider: jest.fn(),
-            attachToo: {namespace: 'test', name: 'test', kind: ExtensionKind.Component, input: 'yes'}, // Replace with actual attachToo type
+            attachToo: {namespace: 'test', name: 'test', kind: ExtensionKind.Component}, // Replace with actual attachToo type
         });
 
         const extension = blueprint.make({

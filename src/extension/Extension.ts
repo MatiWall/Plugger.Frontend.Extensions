@@ -4,8 +4,11 @@ import { ExtensionDataRef, ExtensionDataValue } from "./ExtensionDataRef";
 import { ExtensionKind, attachTooType } from "./types";
 import { ExtensionInputNode } from './ExtensionInputNode';
 
-type ProviderFunction = (context: {
-    inputs: object;
+type ProviderFunction = ({
+    inputs,
+    config,
+}: {
+    inputs: {[key: string]: any};
     config: object;
 }) => ExtensionDataValue[];
 
@@ -19,7 +22,8 @@ class Extension {
     attachToo: attachTooType;
     input: {[key: string]: ExtensionInputNode};
     output: ExtensionDataRef[];
-    configSchema: ZodType = z.object({});
+    configSchema: ZodType<any> = z.object({})
+    config: object = {}
 
     private children: Extension[] = [];
 
@@ -59,6 +63,10 @@ class Extension {
         this.children.push(extension)
     }
 
+    setConfig(config: object){
+        this.config = config;
+    }
+
     evaluate(): ExtensionDataValue[] {
         if (this.disabled) {
             return [];
@@ -75,7 +83,7 @@ class Extension {
 
         let output = this.provider({
             inputs: builtInput, 
-            config: this.configSchema
+            config: this.configSchema.parse(this.config)
         });
         
         return output;
@@ -84,7 +92,7 @@ class Extension {
     }
 
     private buildInput(values: ExtensionDataValue[]){
-        let input = this.input;
+        let input: {[key: string]: any} = this.input;
         
 
         for(const key in input){
@@ -141,4 +149,8 @@ function createExtension({
 export {
     Extension,
     createExtension
+}
+
+export type {
+    ProviderFunction
 }
