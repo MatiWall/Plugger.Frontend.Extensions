@@ -16,7 +16,7 @@
       "jsx": "react",  
       "noImplicitAny": false, 
     },
-    "include": ["src/**/*.ts", "src/extension/Extension.test.tsx"], // Include all .ts files in src and tests
+    "include": ["src/**/*.ts", "src/extension/Extension.test.tsx", "src/extension/Root.tsx"], // Include all .ts files in src and tests
     "exclude": ["node_modules"]               // Exclude node_modules from compilation
   }
   

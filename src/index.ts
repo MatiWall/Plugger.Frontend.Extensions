@@ -1,5 +1,18 @@
 import { idGenerator } from "./Id";
-import { Extension, ExtensionKind, createExtension, createExtensionBluePrint } from "./extension";
+import { 
+    Extension, 
+    ExtensionKind, 
+    createExtension, 
+    createExtensionBluePrint,
+    createExtensionInputNode,
+    ExtensionInputNode,
+    ExtensionDataRef, 
+    ExtensionDataValue, 
+    createExtensionDataRef,
+    rootExtension,
+    rootComponentRef, 
+    rootComponentOutputRef
+} from "./extension";
 import { Plugin, createPlugin } from "./plugin";
 
 
@@ -10,5 +23,13 @@ export {
     ExtensionKind,
     createExtensionBluePrint,
     Plugin, 
-    createPlugin
+    createPlugin,
+    createExtensionInputNode,
+    ExtensionInputNode,
+    ExtensionDataRef, 
+    ExtensionDataValue, 
+    createExtensionDataRef,
+    rootExtension,
+    rootComponentRef, 
+    rootComponentOutputRef
 }

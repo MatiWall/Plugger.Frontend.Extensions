@@ -1,6 +1,8 @@
 import { v4 as uuidv4} from 'uuid';
 
 
+type ExtensionDataValueTypes =  React.ReactNode | {[key: string]: any};
+
 class ExtensionDataRef {
 
     id: string
@@ -12,13 +14,13 @@ class ExtensionDataRef {
 
     }
 
-    with(
-        data: object
-    ): ExtensionDataValue{
-        return new ExtensionDataValue(
+    with<TData extends ExtensionDataValueTypes>(
+        data: TData
+    ): ExtensionDataValue<TData> {
+        return new ExtensionDataValue<TData>(
             this.id,
             data
-        )
+        );
     }
 
 
@@ -39,13 +41,13 @@ function createExtensionDataRef({
 }
 
 
-class ExtensionDataValue{
+class ExtensionDataValue<TData extends ExtensionDataValueTypes>{
     id: string
-    data: object
+    data: TData
 
     constructor(
         id: string,
-        data: object
+        data: TData
     ){
         this.id = id;
         this.data = data;
@@ -58,4 +60,8 @@ export {
     ExtensionDataRef,
     ExtensionDataValue,
     createExtensionDataRef
+}
+
+export type {
+    ExtensionDataValueTypes
 }

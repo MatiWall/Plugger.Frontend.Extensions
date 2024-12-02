@@ -1,8 +1,9 @@
 import { z, ZodType } from 'zod';
 import { idGenerator } from "../Id";
-import { ExtensionDataRef, ExtensionDataValue } from "./ExtensionDataRef";
+import { ExtensionDataRef, ExtensionDataValue, ExtensionDataValueTypes} from "./ExtensionDataRef";
 import { ExtensionKind, attachTooType } from "./types";
 import { ExtensionInputNode } from './ExtensionInputNode';
+
 
 type ProviderFunction = ({
     inputs,
@@ -10,7 +11,7 @@ type ProviderFunction = ({
 }: {
     inputs: {[key: string]: any};
     config: object;
-}) => ExtensionDataValue[];
+}) => ExtensionDataValue<ExtensionDataValueTypes>[];
 
 class Extension {
     
@@ -67,12 +68,12 @@ class Extension {
         this.config = config;
     }
 
-    evaluate(): ExtensionDataValue[] {
+    evaluate(): ExtensionDataValue<ExtensionDataValueTypes>[] {
         if (this.disabled) {
             return [];
         }
 
-        let outputChildren: ExtensionDataValue[] = [];
+        let outputChildren: ExtensionDataValue<ExtensionDataValueTypes>[] = [];
         if (this.children.length > 0){
 
             outputChildren = this.children.map(child => child.evaluate()).flat()
@@ -91,7 +92,7 @@ class Extension {
         
     }
 
-    private buildInput(values: ExtensionDataValue[]){
+    private buildInput(values: ExtensionDataValue<ExtensionDataValueTypes>[]){
         let input: {[key: string]: any} = this.input;
         
 

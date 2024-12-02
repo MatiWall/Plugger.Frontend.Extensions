@@ -15,6 +15,18 @@ mindmap
           Takes ExtensionDataRef and metadata
     Extensions
       Provide data or components to frontend
+      RootExtension
+         Root extension on which all other extensions are attached
+      Core Extensions
+         SideBar
+            Navbar Section
+               Routes linked to main page components
+            Info Section
+               Extra Info
+         Header
+            Logo
+
+
     Plugin Grouping
       Namespace and collection of extensions
 
