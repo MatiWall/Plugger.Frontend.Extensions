@@ -1,6 +1,9 @@
+//import React from 'react'
 import { RouteRef, ExternalRouteRef, Route, createRouteRef } from "@catcode/core-routing";
-import { Extension, ExtensionKind, Plugin, createPlugin } from "..";
-import React from 'react'
+import { Plugin, createPlugin } from "./Plugin";
+import { Extension } from "../extension";
+import { ExtensionKind } from "../extension";
+
 import {z} from 'zod';
 
 describe('Create plugin', ()=>{

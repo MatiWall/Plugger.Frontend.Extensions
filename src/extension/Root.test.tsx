@@ -9,7 +9,6 @@ describe('RootExtension', () => {
 
     const result = rootExtension.evaluate() as ExtensionDataValue<React.ReactNode>[];
 
-
     const { container } = render(result[0].data);
 
     expect(container.textContent).toBe(' No Extensions attached');

@@ -1,11 +1,14 @@
 import React, {ReactElement} from 'react'
 import { 
-    createExtension, 
-    createExtensionDataRef, 
-    ExtensionKind, 
-    createExtensionInputNode
-} from ".."
+    createExtensionDataRef
+} from "./ExtensionDataRef"
 
+import { 
+    createExtension, 
+} from "./Extension"
+
+import { createExtensionInputNode } from './ExtensionInputNode';
+import { ExtensionKind } from './types';
 
 
 const rootComponentRef = createExtensionDataRef();
@@ -25,7 +28,7 @@ const rootExtension = createExtension({
         rootComponentOutputRef
     ],
     provider: ({inputs, config}) => [
-        rootComponentOutputRef.with<ReactElement>(inputs?.app || <div> No Extensions attached</div>)
+        rootComponentOutputRef.with<ReactElement>(inputs?.app || <div> No extensions attached</div>)
     ]
 })
 

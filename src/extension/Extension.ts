@@ -26,7 +26,7 @@ class Extension {
     configSchema: ZodType<any> = z.object({})
     config: object = {}
 
-    private children: Extension[] = [];
+    children: Extension[] = [];
 
     constructor(
         namespace: string,
@@ -60,7 +60,7 @@ class Extension {
         return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind.toString())
     }
 
-    addChildren(extension: Extension){
+    addChild(extension: Extension){
         this.children.push(extension)
     }
 
@@ -112,7 +112,9 @@ class Extension {
                 else if (matches.length === 0){
                     input[key] = undefined;
                 }
-                input[key] = matches[0].data;
+                else{
+                    input[key] = matches[0].data;
+                }
             }
         }
 
