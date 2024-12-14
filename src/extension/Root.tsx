@@ -9,6 +9,8 @@ import {
 
 import { createExtensionInputNode } from './ExtensionInputNode';
 import { ExtensionKind } from './types';
+import { createExtensionBluePrint } from './Blueprint';
+
 
 
 const rootComponentRef = createExtensionDataRef();
@@ -33,8 +35,28 @@ const rootExtension = createExtension({
 })
 
 
+const rootExtensionBluePrint = createExtensionBluePrint({
+    namespace: 'root',
+    name: 'app',
+    kind: ExtensionKind.Component,
+    attachToo: {namespace: 'ignored', name: 'ignored', kind: ExtensionKind.Component},
+    input: {
+        app: createExtensionInputNode({
+            ref: rootComponentRef
+        })
+    }, 
+    output: [
+        rootComponentOutputRef
+    ],
+    provider: ({inputs, config}) => [
+        rootComponentOutputRef.with<ReactElement>(inputs?.app || <div> No extensions attached</div>)
+    ]
+
+})
+
 export {
     rootExtension,
     rootComponentRef, 
-    rootComponentOutputRef
+    rootComponentOutputRef,
+    rootExtensionBluePrint
 }

@@ -11,7 +11,8 @@ import {
     createExtensionDataRef,
     rootExtension,
     rootComponentRef, 
-    rootComponentOutputRef
+    rootComponentOutputRef, 
+    rootExtensionBluePrint
 } from "./extension";
 import { Plugin, createPlugin } from "./plugin";
 
@@ -31,5 +32,6 @@ export {
     createExtensionDataRef,
     rootExtension,
     rootComponentRef, 
-    rootComponentOutputRef
+    rootComponentOutputRef,
+    rootExtensionBluePrint
 }

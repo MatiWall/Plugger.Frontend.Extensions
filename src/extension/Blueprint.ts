@@ -49,7 +49,7 @@ class ExtensionBluePrint {
         input?: {[key: string]: ExtensionInputNode};
         outputs?: ExtensionDataRef[];
         configSchema?: ZodType
-    }) {
+    } = {}) {
         const kind = args.kind ?? this.kind;
         const namespace = args.namespace ?? this.namespace;
         const name = args.name ?? this.name;

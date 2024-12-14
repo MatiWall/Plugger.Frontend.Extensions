@@ -6,7 +6,8 @@ import { ExtensionInputNode, createExtensionInputNode } from "./ExtensionInputNo
 import {
     rootExtension,
     rootComponentRef, 
-    rootComponentOutputRef
+    rootComponentOutputRef,
+    rootExtensionBluePrint
 } from './Root'
 
 ExtensionInputNode
@@ -22,6 +23,6 @@ export {
     createExtensionDataRef,
     rootExtension,
     rootComponentRef, 
-    rootComponentOutputRef
-
+    rootComponentOutputRef,
+    rootExtensionBluePrint
 }

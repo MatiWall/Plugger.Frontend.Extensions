@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { rootExtension } from './Root';
+import { rootExtension, rootExtensionBluePrint } from './Root';
 import { ExtensionDataValue } from './ExtensionDataRef';
 
 
@@ -11,7 +11,18 @@ describe('RootExtension', () => {
 
     const { container } = render(result[0].data);
 
-    expect(container.textContent).toBe(' No Extensions attached');
+    expect(container.textContent).toBe(' No extensions attached');
   });
+
+  test('root extension blueprint', () => {
+
+    const root = rootExtensionBluePrint.make();
+    const result = root.evaluate() as ExtensionDataValue<React.ReactNode>[];
+
+    const { container } = render(result[0].data);
+
+    expect(container.textContent).toBe(' No extensions attached');
+  });
+
 });
 
