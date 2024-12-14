@@ -93,7 +93,7 @@ class Extension {
     }
 
     private buildInput(values: ExtensionDataValue<ExtensionDataValueTypes>[]){
-        let input: {[key: string]: any} = this.input;
+        let input: {[key: string]: any} = {...this.input}
         
 
         for(const key in input){
