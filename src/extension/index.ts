@@ -1,5 +1,5 @@
 import { Extension, createExtension } from "./Extension";
-import { createExtensionBluePrint } from "./Blueprint";
+import { createExtensionBluePrint } from "../blueprint/Blueprint";
 import { ExtensionDataRef, ExtensionDataValue, createExtensionDataRef } from "./ExtensionDataRef";
 import { ExtensionKind } from "./types";
 import { ExtensionInputNode, createExtensionInputNode } from "./ExtensionInputNode";
@@ -9,6 +9,8 @@ import {
     rootComponentOutputRef,
     rootExtensionBluePrint
 } from './Root'
+import { coreDataRef } from "./CoreExtensionData";
+
 
 ExtensionInputNode
 export {
@@ -24,5 +26,7 @@ export {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef,
-    rootExtensionBluePrint
+    rootExtensionBluePrint,
+
+    coreDataRef
 }

@@ -1,4 +1,5 @@
 import { idGenerator } from "./Id";
+import { PageBlueprint } from "./blueprint";
 import { 
     Extension, 
     ExtensionKind, 
@@ -12,10 +13,10 @@ import {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef, 
-    rootExtensionBluePrint
+    rootExtensionBluePrint,
+    coreDataRef
 } from "./extension";
 import { Plugin, createPlugin } from "./plugin";
-
 
 export {
     idGenerator,
@@ -25,7 +26,7 @@ export {
     createExtensionBluePrint,
     Plugin, 
     createPlugin,
-    createExtensionInputNode,
+
     ExtensionInputNode,
     ExtensionDataRef, 
     ExtensionDataValue, 
@@ -33,5 +34,9 @@ export {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef,
-    rootExtensionBluePrint
+    rootExtensionBluePrint,
+    coreDataRef,
+
+    PageBlueprint,
+    createExtensionInputNode
 }

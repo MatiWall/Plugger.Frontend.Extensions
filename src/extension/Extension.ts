@@ -7,10 +7,11 @@ import { ExtensionInputNode } from './ExtensionInputNode';
 
 type ProviderFunction = ({
     inputs,
-    config,
+    config
 }: {
-    inputs: {[key: string]: any};
-    config: object;
+    inputs: {[key: string]: any},
+    config: object
+
 }) => ExtensionDataValue<ExtensionDataValueTypes>[];
 
 class Extension {

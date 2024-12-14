@@ -1,9 +1,9 @@
 import { ZodType, z } from "zod";
-import { createExtension } from "./Extension";
-import { ExtensionKind, attachTooType } from "./types";
-import { ProviderFunction } from "./Extension";
-import { ExtensionDataRef } from "./ExtensionDataRef";
-import { ExtensionInputNode } from "./ExtensionInputNode";
+import { createExtension } from "../extension/Extension";
+import { ExtensionKind, attachTooType } from "../extension/types";
+import { ProviderFunction } from "../extension/Extension";
+import { ExtensionDataRef } from "../extension/ExtensionDataRef";
+import { ExtensionInputNode } from "../extension/ExtensionInputNode";
 
 class ExtensionBluePrint {
     id?: string;
@@ -48,7 +48,8 @@ class ExtensionBluePrint {
         attachToo?: attachTooType;
         input?: {[key: string]: ExtensionInputNode};
         outputs?: ExtensionDataRef[];
-        configSchema?: ZodType
+        configSchema?: ZodType, 
+        params?: {[key: string]: any};
     } = {}) {
         const kind = args.kind ?? this.kind;
         const namespace = args.namespace ?? this.namespace;
