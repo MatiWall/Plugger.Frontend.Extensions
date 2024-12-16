@@ -12,9 +12,9 @@ const PageBlueprint = createExtensionBluePrint({
         coreDataRef.coreRouteRef
     ],
     provider: ({inputs, config, params}) => [
-        coreDataRef.coreRoutePath.with(params.route), 
-        coreRouteRef.with(params.routeRef),
-        coreDataRef.corePageRef.with(params.page)
+        coreDataRef.coreRoutePath.with(params?.route), 
+        coreRouteRef.with(params?.routeRef),
+        coreDataRef.corePageRef.with(params?.page)
     ]
 
 })

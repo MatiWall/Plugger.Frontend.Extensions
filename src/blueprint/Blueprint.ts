@@ -32,7 +32,7 @@ class ExtensionBluePrint {
         this.namespace = namespace;
         this.name = name;
         this.disabled = disabled;
-        this.provider = provider;
+        this.provider = provider
         this.attachToo = attachToo;
         this.input = input;
         this.output = output;
@@ -61,6 +61,8 @@ class ExtensionBluePrint {
         const output = args.outputs ?? this.output;
         const configSchema = args.configSchema ?? this.configSchema;
 
+        const params = args.params;
+
         // Throw errors if any parameter is missing
         if (kind === undefined) throw new Error("The 'kind' parameter must be specified either in the constructor or in make arguments.");
         if (namespace === undefined) throw new Error("The 'namespace' parameter must be specified either in the constructor or in make arguments.");
@@ -76,7 +78,7 @@ class ExtensionBluePrint {
             name,
             kind,
             disabled: disabled,
-            provider: provider,
+            provider: ({inputs, config}) => provider({inputs, config, params}),
             attachToo: attachToo,
             input: input || {},
             output: output,

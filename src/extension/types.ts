@@ -8,7 +8,8 @@ type attachTooType = {
 
 enum ExtensionKind {
     Component = 'Component',
-    Routing = 'Routing'
+    Routing = 'NavItem',
+    Page = 'Page'
 }
 
 export type {

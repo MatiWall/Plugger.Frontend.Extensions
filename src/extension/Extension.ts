@@ -7,10 +7,12 @@ import { ExtensionInputNode } from './ExtensionInputNode';
 
 type ProviderFunction = ({
     inputs,
-    config
+    config,
+    params
 }: {
     inputs: {[key: string]: any},
-    config: object
+    config: object;
+    params?: { [key: string]: any }; // Optional runtime object
 
 }) => ExtensionDataValue<ExtensionDataValueTypes>[];
 
