@@ -1,7 +1,9 @@
-import { PageBlueprint } from "./PageBlueprint";
+import { createExtensionBluePrint, ExtensionBluePrint } from "./Blueprint"
+
 
 
 export {
-    PageBlueprint,
+    createExtensionBluePrint,
+    ExtensionBluePrint
 
 }

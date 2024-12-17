@@ -9,7 +9,7 @@ import {
 
 import { createExtensionInputNode } from './ExtensionInputNode';
 import { ExtensionKind } from './types';
-import { createExtensionBluePrint } from './Blueprint';
+import { createExtensionBluePrint } from '../blueprint/Blueprint';
 
 
 
@@ -29,8 +29,8 @@ const rootExtension = createExtension({
     output: [
         rootComponentOutputRef
     ],
-    provider: ({inputs, config}) => [
-        rootComponentOutputRef.with<ReactElement>(inputs?.app || <div> No extensions attached</div>)
+    provider: ({input, config}) => [
+        rootComponentOutputRef.with<ReactElement>(input?.app || <div> No extensions attached</div>)
     ]
 })
 
@@ -48,8 +48,8 @@ const rootExtensionBluePrint = createExtensionBluePrint({
     output: [
         rootComponentOutputRef
     ],
-    provider: ({inputs, config}) => [
-        rootComponentOutputRef.with<ReactElement>(inputs?.app || <div> No extensions attached</div>)
+    provider: ({input, config}) => [
+        rootComponentOutputRef.with<ReactElement>(input?.app || <div> No extensions attached</div>)
     ]
 
 })

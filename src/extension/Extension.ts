@@ -6,11 +6,11 @@ import { ExtensionInputNode } from './ExtensionInputNode';
 
 
 type ProviderFunction = ({
-    inputs,
+    input,
     config,
     params
 }: {
-    inputs: {[key: string]: any},
+    input: {[key: string]: any},
     config: object;
     params?: { [key: string]: any }; // Optional runtime object
 
@@ -86,7 +86,7 @@ class Extension {
         const builtInput = this.buildInput(outputChildren);
 
         let output = this.provider({
-            inputs: builtInput, 
+            input: builtInput, 
             config: this.configSchema.parse(this.config)
         });
         

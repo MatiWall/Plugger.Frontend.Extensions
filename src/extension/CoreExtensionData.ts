@@ -6,14 +6,14 @@ const coreRouteRef = createExtensionDataRef();
 const corePageRef = createExtensionDataRef();
 const coreRoutePath = createExtensionDataRef();
 
-const coreRouterRef = createExtensionDataRef();
+const coreRoutesRef = createExtensionDataRef();
 
 
 const coreDataRef = {
     corePageRef,
     coreRouteRef,
     coreRoutePath,
-    coreRouterRef
+    coreRoutesRef
 }
 
 export {

@@ -111,11 +111,11 @@ describe('Extension app building', () => {
             name: 'outer',
             kind: ExtensionKind.Component,
             input: { inner: innerInputNode },
-            provider: ({ inputs, config }) => {
+            provider: ({ input, config }) => {
 
                 const context = (
                     <div>
-                        {inputs.inner}
+                        {input.inner}
                         <div>outer</div>
                     </div>
                 )
@@ -169,11 +169,11 @@ describe('Extension app building', () => {
             name: 'inner',
             kind: ExtensionKind.Component,
             input: { 'inner-most': innerInputNode },
-            provider: ({ inputs }) => {
+            provider: ({ input }) => {
                 return [
                     innerDataRef.with(
                         <div>
-                            {inputs['inner-most']}
+                            {input['inner-most']}
                             <div>inner</div>
                         </div>
                     ),
@@ -192,11 +192,11 @@ describe('Extension app building', () => {
             name: 'outer',
             kind: ExtensionKind.Component,
             input: { inner: outerInputNode },
-            provider: ({ inputs }) => {
+            provider: ({ input }) => {
                 return [
                     outerDataRef.with(
                         <div>
-                            {inputs.inner}
+                            {input.inner}
                             <div>outer</div>
                         </div>
                     ),
@@ -339,10 +339,10 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             kind: ExtensionKind.Component,
             disabled: false,
             attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
-            provider: ({ inputs, config }) => {
+            provider: ({ input, config }) => {
                 const context = (
                     <div>
-                        {inputs.children.map((child: any, index: any) => (
+                        {input.children.map((child: any, index: any) => (
                             <React.Fragment key={index}>{child}</React.Fragment>
                         ))}
                         <div>Parent Component</div>
@@ -370,7 +370,7 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             kind: ExtensionKind.Component,
             disabled: false,
             attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
-            provider: ({ inputs, config }) => {
+            provider: ({ input, config }) => {
                 return [sharedDataRef.with(<div>Child 1</div>)];
             },
             input: {},
@@ -387,7 +387,7 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             kind: ExtensionKind.Component,
             disabled: false,
             attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
-            provider: ({ inputs, config }) => {
+            provider: ({ input, config }) => {
                 return [sharedDataRef.with(<div>Child 2</div>)];
             },
             input: {},
