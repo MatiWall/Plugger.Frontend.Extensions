@@ -9,7 +9,7 @@ import {
 
 import { createExtensionInputNode } from './ExtensionInputNode';
 import { ExtensionKind } from './types';
-import { createExtensionBluePrint } from '../blueprint/Blueprint';
+import { createExtensionBluePrint } from './Blueprint';
 
 
 

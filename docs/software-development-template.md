@@ -95,6 +95,13 @@ Modern frontend applications require modular and reusable components. Managing t
 - PageBlueprint - attach to router, includes subpages (subRouteRefs)
 - NavItemBlueprint
 - RouterBlueprint
+- AppBlueprint
+
+**Core Extensions**
+- AppLayout
+    - AppNavbar
+    - AppHeader
+    - AppContent 
 
 **Scope:**  
 - **Included:** Defining and managing extensions and plugins, rendering components, and handling data flow.
@@ -105,8 +112,31 @@ Modern frontend applications require modular and reusable components. Managing t
 2. Extensions are configured and integrated into the frontend application.
 3. End user interacts with the UI built from extensions.
 
-**High-Level Specification Document:**  
-Refer to the class diagrams and relationships in the "Class and Relationship Explanation" section.
+**Root Extensions**
+
+```mermaid
+
+graph TD
+
+RootExtension[Root Extension] ---> |Accepts| App
+AppRouter --> App
+App --> AppLayout
+AppLayout --> AppHeader
+AppLayout --> AppNavbar
+AppLayout --> AppContent
+AppContent --> AppRoutes
+AppRoutes --> PageBluePrint1[PageBluePrint 1]
+AppRoutes --> PageBluePrint2[PageBluePrint 2]
+AppRoutes --> PageBluePrintn[PageBluePrint n]
+
+AppNavbar --> NavbarItem1[NavbarItem 1]
+AppNavbar --> NavbarItem2[NavbarItem 2]
+AppNavbar --> NavbarItemn[NavbarItem n]
+
+AppHeader --> AppLogo
+
+
+```
 
 ---
 

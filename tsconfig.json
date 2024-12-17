@@ -16,7 +16,7 @@
     "declaration": true,                     // Generate declaration files
     "emitDeclarationOnly": false  
   },
-  "include": ["src/**/*.ts", "src/app/App.tsx", "src/blueprint/RouterBluepprint.tsx"],
+  "include": ["src/**/*.ts", "src/app/App.tsx", "src/blueprint/RoutesBlueprint.tsx"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "paths": {
     "@catcode/*": ["./node_modules/@catcode/*"]

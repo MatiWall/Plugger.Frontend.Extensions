@@ -1,9 +1,9 @@
 import { ZodType, z } from "zod";
-import { createExtension } from "../extension/Extension";
-import { ExtensionKind, attachTooType } from "../extension/types";
-import { ProviderFunction } from "../extension/Extension";
-import { ExtensionDataRef } from "../extension/ExtensionDataRef";
-import { ExtensionInputNode } from "../extension/ExtensionInputNode";
+import { createExtension } from "./Extension";
+import { ExtensionKind, attachTooType } from "./types";
+import { ProviderFunction } from "./Extension";
+import { ExtensionDataRef } from "./ExtensionDataRef";
+import { ExtensionInputNode } from "./ExtensionInputNode";
 
 class ExtensionBluePrint {
     id?: string;

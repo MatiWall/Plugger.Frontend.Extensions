@@ -5,7 +5,8 @@ import {AppRouter, Routes, createRoutableComponent} from '@catcode/core-routing'
 
 
 
-const RouterBlueprint = createExtensionBluePrint({
+
+const RoutesBlueprint = createExtensionBluePrint({
     kind: ExtensionKind.Routing,
     namespace: 'app',
     name: 'routing',
@@ -41,5 +42,5 @@ const RouterBlueprint = createExtensionBluePrint({
 })
 
 export {
-    RouterBlueprint
+    RoutesBlueprint
 }
