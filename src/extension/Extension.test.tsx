@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { z } from 'zod';
 import { Extension, createExtension } from "./Extension";
 import { ExtensionDataRef, createExtensionDataRef } from "./ExtensionDataRef";
-import { ExtensionKind } from "./types";
+
 import { ExtensionInputNode, createExtensionInputNode } from './ExtensionInputNode';
 
 
@@ -12,9 +12,9 @@ describe('Extension initialization ', () => {
 
         const namespace = "test";
         const name = "Test Extension";
-        const kind = ExtensionKind.Component;
+        const kind = 'component';
         const disabled = false;
-        const attachToo = { namespace: 'test', name: 'id', kind: ExtensionKind.Component, input: 'test' };
+        const attachToo = { namespace: 'test', name: 'id', kind: 'component'};
         const provider = ({ }) => []; // Mock function for provider
         const input: {[key: string]: ExtensionInputNode} = {};
         const output: ExtensionDataRef[] = [];
@@ -44,9 +44,9 @@ describe('Extension initialization ', () => {
         const extensionDataRef = createExtensionDataRef();
         const namespace = "test";
         const name = "Test Extension";
-        const kind: ExtensionKind = ExtensionKind.Routing; // Replace with actual ExtensionKind
+        const kind: string = 'routing'; // Replace with actual ExtensionKind
         const disabled = false;
-        const attachToo = { namespace: 'test', name: 'id', kind: ExtensionKind.Routing, input: 'test' }; // Replace with actual attachTooType
+        const attachToo = { namespace: 'test', name: 'id', kind: 'routing', input: 'test' }; // Replace with actual attachTooType
         const provider = jest.fn(); // Mock provider function
         const input = {};
         const output = [extensionDataRef];
@@ -74,7 +74,7 @@ describe('Extension initialization ', () => {
         expect(extension.kind).toBe(kind);
         expect(extension.disabled).toBe(disabled);
         expect(extension.attachToo).toBe(attachToo);
-        expect(extension.attachTooId()).toBe(`${ExtensionKind.Routing.toString()}:test/id`);
+        expect(extension.attachTooId()).toBe(`routing:test/id`);
         expect(extension.provider).toBe(provider);
         expect(extension.input).toEqual(input);
         expect(extension.output).toEqual(output);
@@ -92,13 +92,13 @@ describe('Extension app building', () => {
         const inner = createExtension({
             namespace: 'test',
             name: 'inner',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             provider: () => {
                 return [
                     innerDataRef.with(<div>inner</div>)
                 ]
             },
-            attachToo: { namespace: 'test', name: 'outer', kind: ExtensionKind.Component }
+            attachToo: { namespace: 'test', name: 'outer', kind: 'component' }
         })
 
         const outerDataRef = createExtensionDataRef();
@@ -109,7 +109,7 @@ describe('Extension app building', () => {
         const outer = createExtension({
             namespace: 'test',
             name: 'outer',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             input: { inner: innerInputNode },
             provider: ({ input, config }) => {
 
@@ -124,7 +124,7 @@ describe('Extension app building', () => {
                     outerDataRef.with(context)
                 ]
             },
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component }
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component' }
         })
 
 
@@ -150,13 +150,13 @@ describe('Extension app building', () => {
         const innerMost = createExtension({
             namespace: 'test',
             name: 'inner-most',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             provider: () => {
                 return [
                     innerMostDataRef.with(<div>inner-most</div>)
                 ];
             },
-            attachToo: { namespace: 'test', name: 'inner', kind: ExtensionKind.Component },
+            attachToo: { namespace: 'test', name: 'inner', kind: 'component'},
         });
 
         const innerDataRef = createExtensionDataRef();
@@ -167,7 +167,7 @@ describe('Extension app building', () => {
         const inner = createExtension({
             namespace: 'test',
             name: 'inner',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             input: { 'inner-most': innerInputNode },
             provider: ({ input }) => {
                 return [
@@ -179,7 +179,7 @@ describe('Extension app building', () => {
                     ),
                 ];
             },
-            attachToo: { namespace: 'test', name: 'outer', kind: ExtensionKind.Component },
+            attachToo: { namespace: 'test', name: 'outer', kind: 'component' },
         });
 
         const outerDataRef = createExtensionDataRef();
@@ -190,7 +190,7 @@ describe('Extension app building', () => {
         const outer = createExtension({
             namespace: 'test',
             name: 'outer',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             input: { inner: outerInputNode },
             provider: ({ input }) => {
                 return [
@@ -202,7 +202,7 @@ describe('Extension app building', () => {
                     ),
                 ];
             },
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
         });
 
         // Build hierarchy
@@ -262,8 +262,8 @@ describe('Extension Config Schema', () => {
         const extension = createExtension({
             namespace: 'test',
             name: 'config-extension',
-            kind: ExtensionKind.Component,
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
+            kind: 'component',
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component'},
             provider,
             configSchema,
         });
@@ -298,8 +298,8 @@ describe('Extension Config Schema', () => {
         const extension = createExtension({
             namespace: 'test',
             name: 'default-config-extension',
-            kind: ExtensionKind.Component,
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
+            kind: 'component',
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
             provider,
             configSchema: configSchemaWithDefaults,
         });
@@ -336,9 +336,9 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
         const parent = createExtension({
             namespace: 'test',
             name: 'parent',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             disabled: false,
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
             provider: ({ input, config }) => {
                 const context = (
                     <div>
@@ -367,9 +367,9 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
         const child1 = createExtension({
             namespace: 'test',
             name: 'child1',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             disabled: false,
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
             provider: ({ input, config }) => {
                 return [sharedDataRef.with(<div>Child 1</div>)];
             },
@@ -384,9 +384,9 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
         const child2 = createExtension({
             namespace: 'test',
             name: 'child2',
-            kind: ExtensionKind.Component,
+            kind: 'component',
             disabled: false,
-            attachToo: { namespace: 'test', name: 'parent', kind: ExtensionKind.Component },
+            attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
             provider: ({ input, config }) => {
                 return [sharedDataRef.with(<div>Child 2</div>)];
             },

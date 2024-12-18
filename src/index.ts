@@ -1,8 +1,6 @@
-import { idGenerator } from "./Id";
 import { createExtensionBluePrint, ExtensionBluePrint } from "./blueprint";
 import { 
     Extension, 
-    ExtensionKind, 
     createExtension, 
     createExtensionInputNode,
     ExtensionInputNode,
@@ -20,10 +18,8 @@ import {
 import { Plugin, createPlugin } from "./plugin";
 
 export {
-    idGenerator,
     Extension,
     createExtension,
-    ExtensionKind,
 
     createExtensionBluePrint,
     ExtensionBluePrint, 

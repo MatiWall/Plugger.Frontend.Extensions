@@ -1,13 +1,13 @@
 import { ZodType, z } from "zod";
 import { createExtension } from "../extension/Extension";
-import { ExtensionKind, attachTooType } from "../extension/types";
+import { attachTooType } from "../extension/types";
 import { ProviderFunction } from "../extension/Extension";
 import { ExtensionDataRef } from "../extension/ExtensionDataRef";
 import { ExtensionInputNode } from "../extension/ExtensionInputNode";
 
 class ExtensionBluePrint {
     id?: string;
-    kind?: ExtensionKind;
+    kind?: string;
     namespace?: string;
     name?: string;
     disabled?: boolean;
@@ -20,7 +20,7 @@ class ExtensionBluePrint {
     constructor(
         namespace?: string,
         name?: string,
-        kind?: ExtensionKind,
+        kind?: string,
         disabled: boolean = false,
         attachToo?: attachTooType,
         provider?: ProviderFunction,
@@ -40,7 +40,7 @@ class ExtensionBluePrint {
     }
 
     make(args: {
-        kind?: ExtensionKind;
+        kind?: string;
         namespace?: string;
         name?: string;
         disabled?: boolean;
@@ -100,7 +100,7 @@ function createExtensionBluePrint({
 }: {
     namespace?: string;
     name?: string;
-    kind?: ExtensionKind;
+    kind?: string;
     disabled?: boolean;
     attachToo?: attachTooType;
     provider?: ProviderFunction;

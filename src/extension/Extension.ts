@@ -1,8 +1,8 @@
 import { z, ZodType } from 'zod';
-import { idGenerator } from "../Id";
 import { ExtensionDataRef, ExtensionDataValue, ExtensionDataValueTypes} from "./ExtensionDataRef";
-import { ExtensionKind, attachTooType } from "./types";
+import { attachTooType } from "./types";
 import { ExtensionInputNode } from './ExtensionInputNode';
+import { idGenerator } from '@plugger/utils';
 
 
 type ProviderFunction = ({
@@ -19,7 +19,7 @@ type ProviderFunction = ({
 class Extension {
     
     namespace: string;
-    kind: ExtensionKind;
+    kind: string;
     name: string;
     disabled: boolean;
     provider: ProviderFunction;
@@ -34,7 +34,7 @@ class Extension {
     constructor(
         namespace: string,
         name: string,
-        kind: ExtensionKind,
+        kind: string,
         disabled: boolean,
         attachToo: attachTooType,
         provider: ProviderFunction,
@@ -56,11 +56,11 @@ class Extension {
     }
 
     get id(): string{
-        return idGenerator(this.namespace, this.name, this.kind.toString())
+        return idGenerator(this.namespace, this.name, this.kind)
     }
 
     attachTooId(): string{
-        return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind.toString())
+        return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind)
     }
 
     addChild(extension: Extension){
@@ -141,7 +141,7 @@ function createExtension({
 }: {
     namespace: string;
     name: string;
-    kind: ExtensionKind;
+    kind: string;
     disabled?: boolean;
     attachToo: attachTooType;
     provider: ProviderFunction;

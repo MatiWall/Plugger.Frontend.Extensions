@@ -1,5 +1,4 @@
-import {z} from 'zod'
-import { ExtensionKind, createExtensionBluePrint } from "..";
+import {createExtensionBluePrint } from "..";
 
 
 describe('Extension Blueprint', ()=>{
@@ -8,7 +7,7 @@ describe('Extension Blueprint', ()=>{
 
         const name: string = 'test';
         const namespace: string = 'test';
-        const kind: ExtensionKind = ExtensionKind.Component
+        const kind: string = 'component'
 
         const blueprint = createExtensionBluePrint({
             name: name,
@@ -31,7 +30,7 @@ describe('Extension Blueprint', ()=>{
         const blueprint = createExtensionBluePrint({
             namespace: "test-namespace",
             name: "test-name",
-            kind: ExtensionKind.Component, // Replace with actual kind from ExtensionKind
+            kind: 'component', // Replace with actual kind from ExtensionKind
         });
 
         expect(() => {
@@ -43,9 +42,9 @@ describe('Extension Blueprint', ()=>{
         const blueprint = createExtensionBluePrint({
             namespace: "test-namespace",
             name: "test-name",
-            kind: ExtensionKind.Component, // Replace with actual kind from ExtensionKind
+            kind: 'component', // Replace with actual kind from ExtensionKind
             provider: jest.fn(),
-            attachToo: {namespace: 'test', name: 'test', kind: ExtensionKind.Component}, // Replace with actual attachToo type
+            attachToo: {namespace: 'test', name: 'test', kind: 'component'}, // Replace with actual attachToo type
         });
 
         const extension = blueprint.make({

@@ -1,4 +1,3 @@
-import { Extension, ExtensionKind, createExtension } from "..";
 import { createExtensionDataRef, ExtensionDataRef } from "./ExtensionDataRef";
 
 

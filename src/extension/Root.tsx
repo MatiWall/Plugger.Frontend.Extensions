@@ -8,7 +8,6 @@ import {
 } from "./Extension"
 
 import { createExtensionInputNode } from './ExtensionInputNode';
-import { ExtensionKind } from './types';
 import { createExtensionBluePrint } from '../blueprint/Blueprint';
 
 
@@ -19,8 +18,8 @@ const rootComponentOutputRef = createExtensionDataRef();
 const rootExtension = createExtension({
     namespace: 'root',
     name: 'app',
-    kind: ExtensionKind.Component,
-    attachToo: {namespace: 'ignored', name: 'ignored', kind: ExtensionKind.Component},
+    kind: 'component',
+    attachToo: {namespace: 'ignored', name: 'ignored', kind: 'component'},
     input: {
         app: createExtensionInputNode({
             ref: rootComponentRef
@@ -38,8 +37,8 @@ const rootExtension = createExtension({
 const rootExtensionBluePrint = createExtensionBluePrint({
     namespace: 'root',
     name: 'app',
-    kind: ExtensionKind.Component,
-    attachToo: {namespace: 'ignored', name: 'ignored', kind: ExtensionKind.Component},
+    kind: 'component',
+    attachToo: {namespace: 'ignored', name: 'ignored', kind: 'component'},
     input: {
         app: createExtensionInputNode({
             ref: rootComponentRef

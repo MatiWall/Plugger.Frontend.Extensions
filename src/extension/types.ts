@@ -3,19 +3,11 @@
 type attachTooType = {
     namespace: string,
     name: string, 
-    kind: ExtensionKind
+    kind: string
 }
 
-enum ExtensionKind {
-    Component = 'Component',
-    Routing = 'NavItem',
-    Page = 'Page'
-}
+
 
 export type {
     attachTooType, 
-}
-
-export {
-    ExtensionKind
 }

@@ -19,6 +19,7 @@
   "include": ["src/**/*.ts", "src/app/App.tsx", "src/blueprint/RoutesBlueprint.tsx"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "paths": {
-    "@catcode/*": ["./node_modules/@catcode/*"]
+    "@catcode/*": ["./node_modules/@catcode/*"],
+    "@plugger/*": ["./node_modules/@plugger/*"]
   }
 }

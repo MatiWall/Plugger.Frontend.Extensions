@@ -11,6 +11,6 @@ module.exports = {
     },
     extensionsToTreatAsEsm: ['.ts'], // Treat .ts files as ESModules
     transformIgnorePatterns: [
-      'node_modules/(?!@catcode/core-routing)'  // Ignore all node_modules except @catcode/core-routing
+      'node_modules/(?!(@plugger/utils|@catcode/core-routing))'
     ],
   };
