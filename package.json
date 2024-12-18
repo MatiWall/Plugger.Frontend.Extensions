@@ -1,6 +1,6 @@
 {
   "name": "@plugger/extension",
-  "version": "0.1.17",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",
@@ -10,7 +10,8 @@
   "scripts": {
     "test": "jest --config jest.config.js",
     "build": "tsc",
-    "pub": "yarn publish --registry http://verdaccio.mw.local/"
+    "pub": "yarn publish --registry http://verdaccio.mw.local/",
+    "local-add": "yarn add --registry http://verdaccio.mw.local/"
   },
   "files": [
     "dist"
