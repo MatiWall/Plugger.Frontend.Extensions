@@ -1,5 +1,5 @@
 //import React from 'react'
-import { RouteRef, ExternalRouteRef, Route, createRouteRef } from "@catcode/core-routing";
+import { RouteRef, ExternalRouteRef, Route, createRouteRef } from "@plugger/routing";
 import { Plugin, createPlugin } from "./Plugin";
 import { Extension } from "../extension";
 
