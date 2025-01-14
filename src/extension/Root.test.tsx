@@ -1,27 +1,30 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { rootExtension, rootExtensionBluePrint } from './Root';
+import { rootExtension, RootExtensionBluePrint } from './Root';
 import { ExtensionDataValue } from './ExtensionDataRef';
 
 
 describe('RootExtension', () => {
   test('renders "No Extensions attached" when no extensions are provided', () => {
 
-    const result = rootExtension.evaluate() as ExtensionDataValue<React.ReactNode>[];
+    const result = rootExtension.evaluate() as ExtensionDataValue<React.FC>[];
+    const App = result[0].data;
 
-    const { container } = render(result[0].data);
+    const { container } = render(<App/>);
 
-    expect(container.textContent).toBe(' No extensions attached');
+    expect(container.textContent).toContain(' No extensions attached');
   });
 
   test('root extension blueprint', () => {
 
-    const root = rootExtensionBluePrint.make();
-    const result = root.evaluate() as ExtensionDataValue<React.ReactNode>[];
+    const root = RootExtensionBluePrint.make();
+    const result = root.evaluate() as ExtensionDataValue<React.FC>[];
 
-    const { container } = render(result[0].data);
+    const App = result[0].data as React.FC;
 
-    expect(container.textContent).toBe(' No extensions attached');
+    const { container } = render(<App/>);
+
+    expect(container.textContent).toContain(' No extensions attached.');
   });
 
 });

@@ -28,13 +28,27 @@ const rootExtension = createExtension({
     output: [
         rootComponentOutputRef
     ],
-    provider: ({input, config}) => [
-        rootComponentOutputRef.with<ReactElement>(input?.app || <div> No extensions attached</div>)
-    ]
+    provider: ({input, config}) => {
+        
+        const AppRoot = () => {
+            
+            const App = input?.app;
+            if (App){
+                return <App/>
+            }
+            else{
+                return <div> No extensions attached. Create and extension that attaches to namespace=root, name=app and kind=component. Use rootComponentRef for output</div>
+            }
+
+        }
+
+        return [
+        rootComponentOutputRef.with(AppRoot)
+    ]}
 })
 
 
-const rootExtensionBluePrint = createExtensionBluePrint({
+const RootExtensionBluePrint = createExtensionBluePrint({
     namespace: 'root',
     name: 'app',
     kind: 'component',
@@ -47,9 +61,24 @@ const rootExtensionBluePrint = createExtensionBluePrint({
     output: [
         rootComponentOutputRef
     ],
-    provider: ({input, config}) => [
-        rootComponentOutputRef.with<ReactElement>(input?.app || <div> No extensions attached</div>)
-    ]
+    provider: ({input, config}) => {
+
+        const AppRoot = () => {
+            
+            const App = input?.app;
+
+            if (App){
+                return <App/>
+            }
+            else{
+                return <div> No extensions attached. Create and extension that attaches to namespace=root, name=app and kind=component. Use rootComponentRef for output</div>
+            }
+
+        }
+    
+    return [
+        rootComponentOutputRef.with<React.FC>(AppRoot)
+    ]}
 
 })
 
@@ -57,5 +86,5 @@ export {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef,
-    rootExtensionBluePrint
+    RootExtensionBluePrint
 }

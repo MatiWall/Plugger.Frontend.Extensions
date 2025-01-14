@@ -5,7 +5,7 @@ import {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef,
-    rootExtensionBluePrint
+    RootExtensionBluePrint
 } from './Root'
 import { coreDataRef } from "./CoreExtensionData";
 
@@ -21,7 +21,7 @@ export {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef,
-    rootExtensionBluePrint,
+    RootExtensionBluePrint,
 
     coreDataRef
 }

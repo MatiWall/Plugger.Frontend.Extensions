@@ -10,7 +10,7 @@ import {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef, 
-    rootExtensionBluePrint,
+    RootExtensionBluePrint,
     coreDataRef
 } from "./extension";
 
@@ -34,7 +34,7 @@ export {
     rootExtension,
     rootComponentRef, 
     rootComponentOutputRef,
-    rootExtensionBluePrint,
+    RootExtensionBluePrint,
     coreDataRef,
 
     createExtensionInputNode
