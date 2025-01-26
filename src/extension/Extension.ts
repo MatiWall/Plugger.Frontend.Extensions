@@ -1,4 +1,4 @@
-import { z, ZodType } from 'zod';
+import { z, ZodType, ZodTypeAny, infer as zodInfer } from 'zod';
 import { ExtensionDataRef, ExtensionDataValue, ExtensionDataValueTypes} from "./ExtensionDataRef";
 import { attachTooType } from "./types";
 import { ExtensionInputNode } from './ExtensionInputNode';
@@ -16,7 +16,7 @@ type ProviderFunction = ({
 
 }) => ExtensionDataValue<ExtensionDataValueTypes>[];
 
-class Extension {
+class Extension<TConfig extends ZodTypeAny = ZodTypeAny> {
     
     namespace: string;
     kind: string;
@@ -26,8 +26,8 @@ class Extension {
     attachToo: attachTooType;
     input: {[key: string]: ExtensionInputNode};
     output: ExtensionDataRef[];
-    configSchema: ZodType<any> = z.object({})
-    config: object = {}
+    configSchema: TConfig;
+    config: zodInfer<TConfig>;
 
     children: Extension[] = [];
 
@@ -40,7 +40,7 @@ class Extension {
         provider: ProviderFunction,
         input: {[key: string]: ExtensionInputNode},
         output: ExtensionDataRef[],
-        configSchema: ZodType
+        configSchema: TConfig
     ){
         this.namespace = namespace;
         this.name = name;
@@ -52,6 +52,7 @@ class Extension {
         this.input = input;
         this.output = output;
         this.configSchema = configSchema;
+        this.config = this.configSchema.parse({});
 
     }
 

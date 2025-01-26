@@ -1,5 +1,4 @@
 //import React from 'react'
-import { RouteRef, ExternalRouteRef, Route, createRouteRef } from "@plugger/routing";
 import { Plugin, createPlugin } from "./Plugin";
 import { Extension } from "../extension";
 
@@ -20,15 +19,6 @@ describe('Create plugin', ()=>{
             expect(plugin).toBeInstanceOf(Plugin);
             expect(plugin.id).toBe(id);
             expect(plugin.extensions).toEqual(extensions);
-    })
-
-    test('createPlugin function', ()=> {
-        
-        const routeRef = createRouteRef();
-
-        const plugin = createPlugin({
-            id: 'test:id',
-        });
     })
 
 }

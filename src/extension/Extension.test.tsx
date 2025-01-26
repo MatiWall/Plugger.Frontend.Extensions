@@ -239,8 +239,8 @@ describe('Extension Config Schema', () => {
     test('Validates configSchema during evaluation', () => {
         // Define the config schema
         const configSchema = z.object({
-            enabled: z.boolean(),
-            threshold: z.number().min(0).max(100),
+            enabled: z.boolean().default(false),
+            threshold: z.number().min(0).max(100).default(77),
         });
 
         const config = {
@@ -358,8 +358,8 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             },  // Placeholder for children input
             output: [],
             configSchema: z.object({
-                enabled: z.boolean(),
-                threshold: z.number(),
+                enabled: z.boolean().default(true),
+                threshold: z.number().default(2),
             }),
         });
 
@@ -376,8 +376,8 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             input: {},
             output: [],
             configSchema: z.object({
-                enabled: z.boolean(),
-                threshold: z.number(),
+                enabled: z.boolean().default(false),
+                threshold: z.number().default(4),
             }),
         });
 
@@ -393,8 +393,8 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             input: {},
             output: [],
             configSchema: z.object({
-                enabled: z.boolean(),
-                threshold: z.number(),
+                enabled: z.boolean().default(true),
+                threshold: z.number().default(2),
             }),
         });
 
