@@ -5,13 +5,13 @@ import { ExtensionInputNode } from './ExtensionInputNode';
 import { idGenerator } from '@plugger/utils';
 
 
-type ProviderFunction = ({
+type ProviderFunction<TConfig> = ({
     input,
     config,
     params
 }: {
     input: {[key: string]: any},
-    config: object;
+    config: zodInfer<TConfig>;
     params?: { [key: string]: any }; // Optional runtime object
 
 }) => ExtensionDataValue<ExtensionDataValueTypes>[];
@@ -22,7 +22,7 @@ class Extension<TConfig extends ZodTypeAny = ZodTypeAny> {
     kind: string;
     name: string;
     disabled: boolean;
-    provider: ProviderFunction;
+    provider: ProviderFunction<zodInfer<TConfig>>;
     attachToo: attachTooType;
     input: {[key: string]: ExtensionInputNode};
     output: ExtensionDataRef[];
@@ -37,7 +37,7 @@ class Extension<TConfig extends ZodTypeAny = ZodTypeAny> {
         kind: string,
         disabled: boolean,
         attachToo: attachTooType,
-        provider: ProviderFunction,
+        provider: ProviderFunction<zodInfer<TConfig>>,
         input: {[key: string]: ExtensionInputNode},
         output: ExtensionDataRef[],
         configSchema: TConfig
@@ -129,7 +129,7 @@ class Extension<TConfig extends ZodTypeAny = ZodTypeAny> {
 
 }
 
-function createExtension({
+function createExtension<TConfig extends ZodTypeAny>({
     namespace,
     name,
     kind,
@@ -138,21 +138,20 @@ function createExtension({
     provider,
     input = {},
     output = [],
-    configSchema = z.object({})
+    configSchema = z.object({}) as TConfig
 }: {
     namespace: string;
     name: string;
     kind: string;
     disabled?: boolean;
     attachToo: attachTooType;
-    provider: ProviderFunction;
-    input?: {[key: string]: ExtensionInputNode};
+    provider: ProviderFunction<zodInfer<TConfig>>; // Use inferred type for provider
+    input?: { [key: string]: ExtensionInputNode };
     output?: ExtensionDataRef[];
-    configSchema?: ZodType;
-}): Extension {
+    configSchema?: TConfig;
+}): Extension<TConfig> {
     return new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, configSchema);
 }
-
 export {
     Extension,
     createExtension
