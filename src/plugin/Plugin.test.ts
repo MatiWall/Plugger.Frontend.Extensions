@@ -1,6 +1,6 @@
 //import React from 'react'
-import { Plugin, createPlugin } from "./Plugin";
-import { Extension } from "../extension";
+import { Plugin } from "./Plugin";
+import { Extension, createExtension } from "../extension";
 
 import {z} from 'zod';
 
@@ -10,7 +10,13 @@ describe('Create plugin', ()=>{
                 // Arrange: Define test values
             const id = "test-plugin-id";
             const extensions: Extension[] = [
-                new Extension("ext1", "Test Extension 1", 'component', false, {namespace: 'test', name: 'test', kind: 'component'}, jest.fn(), {}, [], z.object({}))
+                createExtension({
+                    namespace: 'test',
+                    name: 'test',
+                    kind: 'test',
+                    attachToo: {namespace: 'test', name: 'test', kind: 'test2'},
+                    provider: jest.fn()
+                })
             ];
             
             const plugin = new Plugin(id, extensions)
