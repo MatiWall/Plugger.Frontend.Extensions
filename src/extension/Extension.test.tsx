@@ -112,7 +112,6 @@ describe('Extension app building', () => {
             kind: 'component',
             input: { inner: innerInputNode },
             provider: ({ input, config }) => {
-
                 const context = (
                     <div>
                         {input.inner}
@@ -340,6 +339,7 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             disabled: false,
             attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
             provider: ({ input, config }) => {
+                
                 const context = (
                     <div>
                         {input.children.map((child: any, index: any) => (
@@ -377,7 +377,7 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             output: [],
             configSchema: z.object({
                 enabled: z.boolean().default(false),
-                threshold: z.number().default(4),
+                threshold: z.number().default(4)
             }),
         });
 

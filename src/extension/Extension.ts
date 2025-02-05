@@ -6,11 +6,18 @@ import { idGenerator } from '@plugger/utils';
 
 type ZodObjectLike = ZodObject<ZodRawShape>;
 
+type ResolvedProviderInput<TInput = Record<string, ExtensionInputNode>> = {
+    [InputName in keyof TInput]: true extends (TInput[InputName] extends { allowMultiple: true } ? true : false)
+    ? Array<TInput[InputName]>
+    : TInput[InputName]
+}
+
 
 type ProviderFunction<
     TConfig,
-    TInput = Record<string, any>,
-    TParams = Record<string, any>
+    TInput = Record<string, ExtensionDataValueTypes>,
+    TParams = Record<string, any>, 
+    TReturn = ExtensionDataValue<ExtensionDataValueTypes>[]
 > = ({
     input,
     config,
@@ -20,7 +27,7 @@ type ProviderFunction<
     config: TConfig;
     params?: TParams; // Optional runtime object
 
-}) => ExtensionDataValue<ExtensionDataValueTypes>[];
+}) => TReturn;
 
 class Extension<
     TConfig extends ZodObjectLike = ZodObject<{}>,
@@ -31,7 +38,7 @@ class Extension<
     kind: string;
     name: string;
     disabled: boolean;
-    provider: ProviderFunction<zodInfer<TConfig>, TInput>;
+    provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>;
     attachToo: attachTooType;
     input: TInput;
     output: ExtensionDataRef[];
@@ -46,7 +53,7 @@ class Extension<
         kind: string,
         disabled: boolean,
         attachToo: attachTooType,
-        provider: ProviderFunction<zodInfer<TConfig>>,
+        provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>,
         input: TInput = {} as TInput,
         output: ExtensionDataRef[],
         configSchema: TConfig
@@ -157,7 +164,7 @@ function createExtension<
     kind: string;
     disabled?: boolean;
     attachToo: attachTooType;
-    provider: ProviderFunction<zodInfer<TConfig>>; // Use inferred type for provider
+    provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>; // Use inferred type for provider
     input?: TInput;
     output?: ExtensionDataRef[];
     configSchema?: TConfig;
@@ -171,5 +178,6 @@ export {
 }
 
 export type {
-    ProviderFunction
+    ProviderFunction,
+    ResolvedProviderInput
 }

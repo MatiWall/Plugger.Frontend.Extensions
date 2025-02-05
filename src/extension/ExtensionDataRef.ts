@@ -1,7 +1,7 @@
 import { v4 as uuidv4} from 'uuid';
 
 
-type ExtensionDataValueTypes =  React.ReactNode | {[key: string]: any};
+type ExtensionDataValueTypes =  React.FC | {[key: string]: any};
 
 class ExtensionDataRef {
 
