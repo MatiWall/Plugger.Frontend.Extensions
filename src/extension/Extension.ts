@@ -6,13 +6,16 @@ import { idGenerator } from '@plugger/utils';
 
 type ZodObjectLike = ZodObject<ZodRawShape>;
 
-type ResolvedProviderInput<TInput = Record<string, ExtensionInputNode>> = {
-    [InputName in keyof TInput]: true extends (TInput[InputName] extends { allowMultiple: true } ? true : false)
-    ? Array<TInput[InputName]>
-    : TInput[InputName]
-}
 
+type ResolvedProviderInput<TExtensionInput> = TExtensionInput extends ExtensionInputNode ? any : never
 
+type ResolvedProviderInputs<TInput extends {[key in keyof TInput]: ExtensionInputNode}> = {
+    [InputName in keyof TInput]: TInput[InputName] extends { allowMultiple: true }
+        ? Array<ResolvedProviderInput<TInput[InputName]>>
+        : ResolvedProviderInput<TInput[InputName]>;
+};
+
+ 
 type ProviderFunction<
     TConfig,
     TInput = Record<string, ExtensionDataValueTypes>,
@@ -30,7 +33,7 @@ type ProviderFunction<
 }) => TReturn;
 
 class Extension<
-    TConfig extends ZodObjectLike = ZodObject<{}>,
+    TConfig extends ZodObject<ZodRawShape> = ZodObject<ZodRawShape>,
     TInput extends Record<string, ExtensionInputNode> = Record<string, ExtensionInputNode>
 > {
 
@@ -38,14 +41,14 @@ class Extension<
     kind: string;
     name: string;
     disabled: boolean;
-    provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>;
+    provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInputs<TInput>>;
     attachToo: attachTooType;
     input: TInput;
     output: ExtensionDataRef[];
     configSchema: TConfig;
     config: zodInfer<TConfig>;
 
-    children: Extension[] = [];
+    children: Extension<any, any>[] = [];
 
     constructor(
         namespace: string,
@@ -53,7 +56,7 @@ class Extension<
         kind: string,
         disabled: boolean,
         attachToo: attachTooType,
-        provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>,
+        provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInputs<TInput>>,
         input: TInput = {} as TInput,
         output: ExtensionDataRef[],
         configSchema: TConfig
@@ -80,7 +83,7 @@ class Extension<
         return idGenerator(this.attachToo.namespace, this.attachToo.name, this.attachToo.kind)
     }
 
-    addChild(extension: Extension) {
+    addChild(extension: Extension<any, any>) {
         this.children.push(extension)
     }
 
@@ -112,7 +115,7 @@ class Extension<
 
     }
 
-    private buildInput(values: ExtensionDataValue<ExtensionDataValueTypes>[]) {
+    private buildInput(values: ExtensionDataValue<ExtensionDataValueTypes>[]): ResolvedProviderInputs<TInput> {
         let input: { [key: string]: any } = { ...this.input }
 
 
@@ -138,7 +141,7 @@ class Extension<
             }
         }
 
-        return input;
+        return input as ResolvedProviderInputs<TInput>;
 
 
     }
@@ -146,7 +149,7 @@ class Extension<
 }
 
 function createExtension<
-    TConfig extends ZodObjectLike = ZodObject<{}>,
+    TConfig extends ZodObject<ZodRawShape> = ZodObject<ZodRawShape>,
     TInput extends Record<string, ExtensionInputNode> = Record<string, ExtensionInputNode>
 >({
     namespace,
@@ -164,13 +167,13 @@ function createExtension<
     kind: string;
     disabled?: boolean;
     attachToo: attachTooType;
-    provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>; // Use inferred type for provider
+    provider: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInputs<TInput>>; // Use inferred type for provider
     input?: TInput;
     output?: ExtensionDataRef[];
     configSchema?: TConfig;
 }): Extension<TConfig, TInput> {
-    const schema = (configSchema ?? (z.object({}) as TConfig));
-    return new Extension(namespace, name, kind, disabled, attachToo, provider, input, output, schema);
+    const schema: TConfig = configSchema ?? (z.object({}) as unknown as  TConfig);
+    return new Extension<TConfig, TInput>(namespace, name, kind, disabled, attachToo, provider, input, output, schema);
 }
 export {
     Extension,
@@ -179,5 +182,5 @@ export {
 
 export type {
     ProviderFunction,
-    ResolvedProviderInput
+    ResolvedProviderInputs as ResolvedProviderInput
 }

@@ -339,7 +339,6 @@ describe('Multiple Extensions with the Same Parent and Shared Data Ref', () => {
             disabled: false,
             attachToo: { namespace: 'test', name: 'parent', kind: 'component' },
             provider: ({ input, config }) => {
-                
                 const context = (
                     <div>
                         {input.children.map((child: any, index: any) => (
