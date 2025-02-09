@@ -4,8 +4,6 @@ import { attachTooType } from "./types";
 import { ExtensionInputNode } from './ExtensionInputNode';
 import { idGenerator } from '@plugger/utils';
 
-type ZodObjectLike = ZodObject<ZodRawShape>;
-
 
 type ResolvedProviderInput<TExtensionInput> = TExtensionInput extends ExtensionInputNode ? any : never
 
