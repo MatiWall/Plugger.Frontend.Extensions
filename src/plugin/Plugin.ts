@@ -1,29 +1,37 @@
 import { Extension } from "../extension";
 
-class Plugin {
+class Plugin<TRoutes = {}, TExternalRoutes = {}> {
     id: string;
-    extensions: Extension[];
+    extensions: Extension<any, any>[];  // Keeping any since extensions may be heterogeneous
+    routes: TRoutes;
+    externalRoutes: TExternalRoutes;
 
     constructor(
         id: string,
-        extensions: Extension[]
+        extensions: Extension<any, any>[] = [],
+        routes: TRoutes,
+        externalRoutes: TExternalRoutes
     ) {
         this.id = id;
         this.extensions = extensions;
+        this.routes = routes;
+        this.externalRoutes = externalRoutes;
     }
 }
 
-function createPlugin({
+// Factory function to simplify plugin creation
+function createPlugin<TRoutes = {}, TExternalRoutes = {}>({
     id,
-    extensions = []
+    extensions = [],
+    routes = {} as TRoutes,
+    externalRoutes = {} as TExternalRoutes
 }: {
     id: string;
-    extensions?: Extension[]; // Optional array
-}): Plugin {
-    return new Plugin(
-        id,
-        extensions
-    );
+    extensions?: Extension<any, any>[]; 
+    routes?: TRoutes;
+    externalRoutes?: TExternalRoutes;
+}): Plugin<TRoutes, TExternalRoutes> {
+    return new Plugin(id, extensions, routes, externalRoutes);
 }
 
 export {

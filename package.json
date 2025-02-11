@@ -1,6 +1,6 @@
 {
-  "name": "@plugger/extension",
-  "version": "0.1.7",
+  "name": "@plugger/frontend-extension",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",
