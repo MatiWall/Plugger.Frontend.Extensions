@@ -1,6 +1,6 @@
 {
   "name": "@plugger/frontend-extension",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:MatiWall/CatCode.Frontend.CorePlugin.git",
@@ -21,7 +21,7 @@
     "lodash": "^4.17.21",
     "react": "^19.0.0",
     "uuid": "^11.0.3",
-    "zod": "^3.23.8"
+    "zod": "3.24.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
