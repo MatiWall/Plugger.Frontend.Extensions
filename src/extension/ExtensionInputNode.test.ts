@@ -1,6 +1,6 @@
 import { ExtensionInputNode, createExtensionInputNode } from "./ExtensionInputNode";
 import { createExtensionDataRef } from "./ExtensionDataRef";
-
+import { describe, test, expect } from 'vitest'
 
 describe("ExtensionInputNode", () => {
     test("should create an ExtensionInputNode instance with correct properties", () => {

@@ -1,5 +1,5 @@
 import {createExtensionBluePrint } from "..";
-
+import { describe, test, expect, vi } from 'vitest'
 
 describe('Extension Blueprint', ()=>{
 
@@ -43,7 +43,7 @@ describe('Extension Blueprint', ()=>{
             namespace: "test-namespace",
             name: "test-name",
             kind: 'component', // Replace with actual kind from ExtensionKind
-            provider: jest.fn(),
+            provider: vi.fn(),
             attachToo: {namespace: 'test', name: 'test', kind: 'component'}, // Replace with actual attachToo type
         });
 

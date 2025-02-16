@@ -5,7 +5,7 @@ import { Extension, createExtension } from "./Extension";
 import { ExtensionDataRef, createExtensionDataRef } from "./ExtensionDataRef";
 
 import { ExtensionInputNode, createExtensionInputNode } from './ExtensionInputNode';
-
+import { vi, describe, test, expect } from 'vitest'
 
 describe('Extension initialization ', () => {
     test('Create extension instance directly', () => {
@@ -47,7 +47,7 @@ describe('Extension initialization ', () => {
         const kind: string = 'routing'; // Replace with actual ExtensionKind
         const disabled = false;
         const attachToo = { namespace: 'test', name: 'id', kind: 'routing', input: 'test' }; // Replace with actual attachTooType
-        const provider = jest.fn(); // Mock provider function
+        const provider = vi.fn(); // Mock provider function
         const input = {};
         const output = [extensionDataRef];
         const configSchema = z.object({
@@ -253,7 +253,7 @@ describe('Extension Config Schema', () => {
         };
 
         const dataRef = { id: 'test-data-ref', data: {} };
-        const provider = jest.fn(({ config }) => {
+        const provider = vi.fn(({ config }) => {
             // Provider logic, returning processed output
             return [{ id: 'output', data: { config } }];
         });
@@ -290,7 +290,7 @@ describe('Extension Config Schema', () => {
             threshold: z.number().default(10),
         });
 
-        const provider = jest.fn(({ config }) => {
+        const provider = vi.fn(({ config }) => {
             return [{ id: 'output', data: { config } }];
         });
 

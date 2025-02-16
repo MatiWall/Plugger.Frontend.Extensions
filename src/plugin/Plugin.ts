@@ -1,6 +1,6 @@
 import { Extension } from "../extension";
 
-class Plugin<TRoutes = {}, TExternalRoutes = {}> {
+class Plugin<TRoutes extends Record<string, any> = {}, TExternalRoutes extends Record<string, any> = {}> {
     id: string;
     extensions: Extension<any, any>[];  // Keeping any since extensions may be heterogeneous
     routes: TRoutes;
@@ -20,7 +20,7 @@ class Plugin<TRoutes = {}, TExternalRoutes = {}> {
 }
 
 // Factory function to simplify plugin creation
-function createPlugin<TRoutes = {}, TExternalRoutes = {}>({
+function createPlugin<TRoutes extends Record<string, any> = {}, TExternalRoutes extends Record<string, any> = {}>({
     id,
     extensions = [],
     routes = {} as TRoutes,

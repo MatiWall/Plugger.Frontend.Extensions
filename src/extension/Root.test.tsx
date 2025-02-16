@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { rootExtension, RootExtensionBluePrint } from './Root';
 import { ExtensionDataValue } from './ExtensionDataRef';
-
+import { describe, test, expect } from 'vitest'
 
 describe('RootExtension', () => {
   test('renders "No Extensions attached" when no extensions are provided', () => {

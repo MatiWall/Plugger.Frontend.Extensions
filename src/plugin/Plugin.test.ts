@@ -1,19 +1,20 @@
 import { Plugin, createPlugin } from "../plugin";
 import { Extension, createExtension } from "../extension";
+import { vi, describe, it, expect } from 'vitest'
 
 const ext1 = createExtension({
     name: 'ext1', 
     namespace: 'test', 
     kind: 'test', 
     attachToo: {name: 'dummy', namespace: 'dummy', kind: 'dummy'},
-    provider: jest.fn()
+    provider: vi.fn()
 });
 const ext2 = createExtension({
     name: 'ext2', 
     namespace: 'test', 
     kind: 'test', 
     attachToo: {name: 'dummy', namespace: 'dummy', kind: 'dummy'},
-    provider: jest.fn()
+    provider: vi.fn()
 });
 
 describe("Plugin Class", () => {
