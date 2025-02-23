@@ -20,7 +20,10 @@ class Plugin<TRoutes extends Record<string, any> = {}, TExternalRoutes extends R
 }
 
 // Factory function to simplify plugin creation
-function createPlugin<TRoutes extends Record<string, any> = {}, TExternalRoutes extends Record<string, any> = {}>({
+function createPlugin<
+    TRoutes extends Record<string, any> = {}, 
+    TExternalRoutes extends Record<string, any> = {}
+    >({
     id,
     extensions = [],
     routes = {} as TRoutes,
