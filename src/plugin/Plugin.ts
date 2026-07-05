@@ -1,14 +1,15 @@
 import { Extension } from "../extension";
+import { NodeSpec } from "../types";
 
 class Plugin<TRoutes extends Record<string, any> = {}, TExternalRoutes extends Record<string, any> = {}> {
     id: string;
-    extensions: Extension<any, any>[];  // Keeping any since extensions may be heterogeneous
+    extensions: Extension<NodeSpec>[];  // Keeping any since extensions may be heterogeneous
     routes: TRoutes;
     externalRoutes: TExternalRoutes;
 
     constructor(
         id: string,
-        extensions: Extension<any, any>[] = [],
+        extensions: Extension<NodeSpec>[] = [],
         routes: TRoutes,
         externalRoutes: TExternalRoutes
     ) {
@@ -30,7 +31,7 @@ function createPlugin<
     externalRoutes = {} as TExternalRoutes
 }: {
     id: string;
-    extensions?: Extension<any, any>[]; 
+    extensions?: Extension<NodeSpec>[]; 
     routes?: TRoutes;
     externalRoutes?: TExternalRoutes;
 }): Plugin<TRoutes, TExternalRoutes> {

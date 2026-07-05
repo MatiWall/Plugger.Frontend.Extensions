@@ -1,37 +1,33 @@
 import { ZodObject, ZodType, z, infer as zodInfer } from "zod";
 import { createExtension } from "../extension/Extension";
 import { attachTooType } from "../extension/types";
-import { ProviderFunction, ResolvedProviderInput } from "../extension/Extension";
-import { ExtensionDataRef, ExtensionDataValueTypes } from "../extension/ExtensionDataRef";
-import { ExtensionInputNode } from "../extension/ExtensionInputNode";
+import { ExtensionDataRef } from "../extension/ExtensionDataRef";
+import { NodeSpec, Provider } from "../types";
 
 type ZodObjectLike = ZodObject<any, any>;
 
-class ExtensionBluePrint<
-    TConfig extends ZodObjectLike = ZodObject<{}>,
-    TInput extends Record<string, ExtensionInputNode> = Record<string, ExtensionInputNode>
-> {
+class ExtensionBluePrint<TSpec extends NodeSpec> {
     id?: string;
     kind?: string;
     namespace?: string;
     name?: string;
     disabled?: boolean;
-    provider?: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>;
+    provider?: Provider<TSpec>;
     attachToo?: attachTooType;
-    input?: TInput;
+    input?: TSpec['input'];
     output?: ExtensionDataRef[];
-    configSchema: TConfig
-
+    configSchema: zodInfer<TSpec['config']> 
+    
     constructor(
         namespace?: string,
         name?: string,
         kind?: string,
         disabled: boolean = false,
         attachToo?: attachTooType,
-        provider?: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>,
-        input: TInput = {} as TInput,
+        provider?: Provider<TSpec>,
+        input: TSpec['input'] = {} as TSpec['input'],
         output: ExtensionDataRef[] = [],
-        configSchema: TConfig = z.object({}) as TConfig
+        configSchema: zodInfer<TSpec['config']> = z.object({}) as zodInfer<TSpec['config']>
     ) {
         this.kind = kind;
         this.namespace = namespace;
@@ -44,17 +40,17 @@ class ExtensionBluePrint<
         this.configSchema = configSchema;
     }
 
-    make(args: {
+    make<TMakeConfig extends ZodObjectLike>(args: {
         kind?: string;
         namespace?: string;
         name?: string;
         disabled?: boolean;
-        provider?: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>;
+        provider?: Provider<TSpec>;
         attachToo?: attachTooType;
-        input?: TInput;
+        input?: TSpec['input'];
         outputs?: ExtensionDataRef[];
-        configSchema?: TConfig,
-        params?: Record<string, any>;
+        configSchema?: TMakeConfig,
+        params?: TSpec['params'];
     } = {}) {
         const kind = args.kind ?? this.kind;
         const namespace = args.namespace ?? this.namespace;
@@ -78,48 +74,42 @@ class ExtensionBluePrint<
         if (configSchema === undefined) throw new Error("The 'configSchema' parameter must be specified either in the constructor or in make arguments.");
 
 
-        return createExtension<
-            TConfig,
-            TInput
-        >({
+        return createExtension<TSpec>({
             namespace,
             name,
             kind,
             disabled: disabled,
             provider: ({ input, config }) => provider({ input, config, params }),
             attachToo: attachToo,
-            input: (input || {}) as TInput,
+            input: (input || {}) as TSpec['input'],
             output: output,
-            configSchema: configSchema as TConfig,
+            configSchema: configSchema as TMakeConfig,
         });
     }
 }
 
-function createExtensionBluePrint<
-    TConfig extends ZodObjectLike = ZodObject<{}>,
-    TInput extends Record<string, ExtensionInputNode> = Record<string, ExtensionInputNode>,
->({
+function createExtensionBluePrint<TSpec extends NodeSpec>({
     namespace,
     name,
     kind,
     disabled = false,
     attachToo,
     provider,
-    input = {} as TInput,
+    input = {} as TSpec['input'],
     output = [],
-    configSchema = z.object({}) as TConfig,
+    configSchema = z.object({}) as TSpec['config'],
 }: {
     namespace?: string;
     name?: string;
     kind?: string;
     disabled?: boolean;
     attachToo?: attachTooType;
-    provider?: ProviderFunction<zodInfer<TConfig>, ResolvedProviderInput<TInput>>;
-    input?: TInput;
+    provider?: Provider<TSpec>;
+    input?: TSpec['input'];
     output?: ExtensionDataRef[];
-    configSchema?: TConfig;
+    configSchema?: TSpec['config'];
 } = {}) {
-    return new ExtensionBluePrint<TConfig, TInput>(
+    return new ExtensionBluePrint<TSpec>(
         namespace,
         name,
         kind,
