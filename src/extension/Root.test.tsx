@@ -12,7 +12,7 @@ describe('RootExtension', () => {
 
     const { container } = render(<App/>);
 
-    expect(container.textContent).toContain(' No extensions attached');
+    expect(container.textContent).toContain('No extensions attached');
   });
 
   test('root extension blueprint', () => {
@@ -24,7 +24,7 @@ describe('RootExtension', () => {
 
     const { container } = render(<App/>);
 
-    expect(container.textContent).toContain(' No extensions attached.');
+    expect(container.textContent).toContain('No extensions attached.');
   });
 
 });

@@ -7,7 +7,6 @@ export type NodeSpec = {
     input: Record<string, ExtensionInputNode>;
     config: ZodObject<any>;
     params: any;
-    output: ExtensionDataRef[];
 };
 
 export type ProviderInput<TInput> = TInput extends Record<string, ExtensionInputNode> ? {
